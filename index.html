@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>बस वाला | Bus Vala</title>
   
-  <!-- Rozha One Font & FontAwesome Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Rozha+One&display=swap" rel="stylesheet">
@@ -16,6 +15,7 @@
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
     }
 
     html, body {
@@ -28,7 +28,6 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
 
-    /* App Viewport */
     .app-viewport {
       position: relative;
       width: 100%;
@@ -37,7 +36,7 @@
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
-      padding: 16px 20px 20px 20px;
+      padding: 16px 16px 24px 16px;
     }
 
     /* Background Image Layer */
@@ -48,7 +47,7 @@
       width: 100%;
       height: 100%;
       background-size: cover;
-      background-position: center;
+      background-position: center bottom;
       background-repeat: no-repeat;
       transition: background-image 0.8s ease-in-out;
       z-index: 1;
@@ -84,10 +83,10 @@
       box-shadow: 0 0 6px #2ed573;
     }
 
-    /* Title Positioned Upward (Horizontal Center, Vertical 24%) */
+    /* Title Positioned Upward (Centered) */
     .center-top-branding {
       position: absolute;
-      top: 24%;
+      top: 26%;
       left: 50%;
       transform: translateX(-50%);
       text-align: center;
@@ -98,18 +97,17 @@
 
     .main-title {
       font-family: 'Rozha One', serif;
-      font-size: clamp(3rem, 8.5vw, 5.2rem);
+      font-size: clamp(2.8rem, 10vw, 4.5rem);
       font-weight: 400;
-      letter-spacing: 1px;
       color: #ffffff;
-      text-shadow: 0px 4px 35px rgba(0, 0, 0, 0.85);
+      text-shadow: 0px 4px 30px rgba(0, 0, 0, 0.85);
     }
 
     /* Floating Horn Button */
     .horn-btn {
       position: absolute;
-      left: 20px;
-      top: 52%;
+      left: 16px;
+      top: 54%;
       transform: translateY(-50%);
       background: rgba(255, 255, 255, 0.15);
       border: 1px solid rgba(255, 255, 255, 0.25);
@@ -128,33 +126,27 @@
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
     }
 
-    .horn-btn:hover {
-      background: rgba(255, 255, 255, 0.28);
-      transform: translateY(-50%) scale(1.05);
-    }
-
     /* Bottom Section Container */
     .bottom-section {
       width: 100%;
-      max-width: 580px;
+      max-width: 420px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
       z-index: 10;
-      margin-bottom: 5px;
       position: relative;
     }
 
-    /* Frosted Glass Playlist Modal Drawer */
+    /* Playlist Drawer Overlay */
     .playlist-drawer {
       width: 100%;
-      max-height: 280px;
-      background: rgba(25, 15, 15, 0.55);
+      max-height: 260px;
+      background: rgba(20, 10, 10, 0.65);
       border: 1px solid rgba(255, 255, 255, 0.2);
       backdrop-filter: blur(30px);
       -webkit-backdrop-filter: blur(30px);
-      border-radius: 20px;
+      border-radius: 24px;
       padding: 12px;
       overflow-y: auto;
       display: flex;
@@ -166,7 +158,7 @@
       transform: translateY(10px);
       transition: all 0.3s ease;
       position: absolute;
-      bottom: 110%;
+      bottom: 105%;
     }
 
     .playlist-drawer.active {
@@ -178,28 +170,22 @@
     .playlist-item {
       display: flex;
       align-items: center;
-      justify-content: space-between;
       padding: 8px 12px;
-      border-radius: 10px;
+      border-radius: 12px;
       cursor: pointer;
       font-size: 13px;
-      transition: background 0.2s ease;
-      gap: 10px;
-    }
-
-    .playlist-item:hover {
-      background: rgba(255, 255, 255, 0.15);
+      gap: 12px;
     }
 
     .playlist-item.active-track {
-      background: rgba(255, 255, 255, 0.25);
+      background: rgba(255, 255, 255, 0.2);
       font-weight: 600;
     }
 
     .track-num {
       font-size: 11px;
       color: rgba(255, 255, 255, 0.6);
-      min-width: 20px;
+      min-width: 16px;
     }
 
     .track-info-mini {
@@ -219,22 +205,19 @@
     .track-artist-mini {
       font-size: 11px;
       color: rgba(255, 255, 255, 0.6);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
     }
 
-    /* Auto-Changing Shayari Container */
+    /* Shayari Text */
     .shayari-container {
       width: 100%;
       text-align: center;
-      padding: 0 10px;
+      padding: 0 8px;
     }
 
     .shayari-text {
-      font-size: clamp(0.9rem, 3vw, 1.1rem);
+      font-size: clamp(0.9rem, 3.5vw, 1.05rem);
       font-weight: 500;
-      line-height: 1.4;
+      line-height: 1.35;
       color: #ffffff;
       text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
       opacity: 1;
@@ -245,65 +228,68 @@
       opacity: 0;
     }
 
-    /* Glass Player Controls Bar */
+    /* Exact Mobile Glass Player Box Match */
     .glass-player {
       width: 100%;
       background: rgba(255, 255, 255, 0.12);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      backdrop-filter: blur(25px);
-      -webkit-backdrop-filter: blur(25px);
-      border-radius: 60px;
-      padding: 10px 18px;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      border-radius: 36px;
+      padding: 16px;
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px;
+      flex-direction: column;
+      gap: 12px;
       box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
     }
 
-    .track-left {
+    .track-top-row {
       display: flex;
       align-items: center;
-      gap: 12px;
-      flex: 1;
+      gap: 14px;
+      width: 100%;
     }
 
     .album-art {
-      width: 50px;
-      height: 50px;
+      width: 60px;
+      height: 60px;
       border-radius: 50%;
       object-fit: cover;
       border: 1px solid rgba(255, 255, 255, 0.3);
+      flex-shrink: 0;
     }
 
     .track-details {
       display: flex;
       flex-direction: column;
       gap: 3px;
-      width: 100%;
+      flex: 1;
+      overflow: hidden;
     }
 
     .song-title {
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 600;
       color: #ffffff;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      max-width: 180px;
     }
 
     .artist-name {
-      font-size: 11px;
+      font-size: 12px;
       color: rgba(255, 255, 255, 0.7);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .progress-box {
       width: 100%;
       display: flex;
       flex-direction: column;
-      gap: 4px;
-      margin-top: 2px;
+      gap: 5px;
+      margin-top: 4px;
     }
 
     .progress-bar {
@@ -328,46 +314,44 @@
       color: rgba(255, 255, 255, 0.6);
     }
 
+    /* Player Controls Centered Row */
     .player-controls {
       display: flex;
       align-items: center;
-      gap: 8px;
+      justify-content: center;
+      gap: 18px;
+      width: 100%;
+      margin-top: 2px;
     }
 
     .ctrl-btn {
-      background: none;
+      background: rgba(255, 255, 255, 0.1);
       border: none;
-      color: rgba(255, 255, 255, 0.85);
-      font-size: 14px;
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 13px;
       cursor: pointer;
-      transition: all 0.2s ease;
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 30px;
-      height: 30px;
+      width: 34px;
+      height: 34px;
       border-radius: 50%;
-    }
-
-    .ctrl-btn:hover {
-      color: #ffffff;
-      background: rgba(255, 255, 255, 0.15);
+      transition: all 0.2s ease;
     }
 
     .ctrl-btn.play-circle {
       background: #ffffff;
       color: #000000;
-      width: 38px;
-      height: 38px;
-      font-size: 15px;
+      width: 44px;
+      height: 44px;
+      font-size: 16px;
     }
 
-    /* Hidden YouTube Player Wrapper */
+    /* Hidden YouTube Container */
     #yt-player-container {
       position: absolute;
       width: 1px;
       height: 1px;
-      overflow: hidden;
       opacity: 0;
       pointer-events: none;
     }
@@ -381,7 +365,7 @@
   <div class="app-viewport">
     <!-- Top Status Bar -->
     <header class="top-bar">
-      <span id="clock">05:21 PM</span>
+      <span id="clock">17:40</span>
       <div class="status-pill">
         <span class="green-dot"></span> <span id="passenger-count">1</span> on the highway
       </div>
@@ -398,22 +382,20 @@
       <span>हॉर्न ओके प्लीज</span>
     </button>
 
-    <!-- Bottom Section -->
+    <!-- Bottom Section Container -->
     <div class="bottom-section">
 
-      <!-- Playlist Overlay Drawer (Opens on 3 Lines Button) -->
-      <div class="playlist-drawer" id="playlist-drawer">
-        <!-- Playlist Items dynamically populated -->
-      </div>
+      <!-- Playlist Overlay Drawer -->
+      <div class="playlist-drawer" id="playlist-drawer"></div>
 
-      <!-- Auto-Changing Hindi Shayari Text -->
+      <!-- Auto-Changing Shayari Text -->
       <div class="shayari-container">
         <p class="shayari-text" id="shayari-box">बुरी नजर वाले, तेरे बच्चे जियें; बड़े होकर, तेरा ही खून पियें!</p>
       </div>
 
-      <!-- Glassmorphism Player -->
+      <!-- Native Mobile Stacked Glass Player Box -->
       <div class="glass-player">
-        <div class="track-left">
+        <div class="track-top-row">
           <img class="album-art" src="bus1.jpg" id="album-thumb" alt="Album Cover" />
           <div class="track-details">
             <span class="song-title" id="song-title">Tumhein Dekhen Meri Aankhen</span>
@@ -432,29 +414,20 @@
           <button class="ctrl-btn" onclick="prevTrack()"><i class="fa-solid fa-backward-step"></i></button>
           <button class="ctrl-btn play-circle" onclick="togglePlay()"><i class="fa-solid fa-play" id="play-icon"></i></button>
           <button class="ctrl-btn" onclick="nextTrack()"><i class="fa-solid fa-forward-step"></i></button>
-          <!-- 3-Lines Button toggles playlist view -->
           <button class="ctrl-btn" onclick="togglePlaylistDrawer()" title="View Playlist"><i class="fa-solid fa-list-ul"></i></button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Hidden YT Player Engine -->
   <div id="yt-player-container">
     <div id="yt-player"></div>
   </div>
 
-  <!-- YouTube Iframe API -->
   <script src="https://www.youtube.com/iframe_api"></script>
 
   <script>
-    // Bus Background Images Array
-    const bgImages = [
-      "bus1.jpg",
-      "bus2.jpg"
-    ];
-
-    // Rotating Hindi Shayari List
+    const bgImages = ["bus1.jpg", "bus2.jpg"];
     const shayaris = [
       "बुरी नजर वाले, तेरे बच्चे जियें; बड़े होकर, तेरा ही खून पियें!",
       "नीम का पेड़ चंदन से कम नहीं, हमारा गुड़गाँव लंदन से कम नहीं।",
@@ -467,19 +440,16 @@
     let player = null;
     let isPlaying = false;
     let hornAudio = null;
-    let currentTrackIndex = 0;
 
-    // Set initial background
     document.getElementById('bg-container').style.backgroundImage = `url('${bgImages[0]}')`;
 
-    // YouTube API Initialization with your Playlist
     function onYouTubeIframeAPIReady() {
       player = new YT.Player('yt-player', {
         height: '100',
         width: '100',
         playerVars: {
           listType: 'playlist',
-          list: 'PL0umg_TNpoZTTdZVIi5tfX69pRmoMFGna', // Playlist ID
+          list: 'PL0umg_TNpoZTTdZVIi5tfX69pRmoMFGna',
           autoplay: 0,
           controls: 0
         },
@@ -508,7 +478,6 @@
       }
     }
 
-    // Triggered when track changes (Next/Prev/Select/Song end)
     function onTrackChanged() {
       updateTrackInfo();
       rotateBackgroundImage();
@@ -522,24 +491,11 @@
 
     function togglePlay() {
       if (!player) return;
-      if (isPlaying) {
-        player.pauseVideo();
-      } else {
-        player.playVideo();
-      }
+      isPlaying ? player.pauseVideo() : player.playVideo();
     }
 
-    function nextTrack() {
-      if (player) {
-        player.nextVideo();
-      }
-    }
-
-    function prevTrack() {
-      if (player) {
-        player.previousVideo();
-      }
-    }
+    function nextTrack() { if (player) player.nextVideo(); }
+    function prevTrack() { if (player) player.previousVideo(); }
 
     function toggleShuffle() {
       if (player) {
@@ -551,32 +507,26 @@
     function togglePlaylistDrawer() {
       const drawer = document.getElementById('playlist-drawer');
       drawer.classList.toggle('active');
-      if (drawer.classList.contains('active')) {
-        populatePlaylistDrawer();
-      }
+      if (drawer.classList.contains('active')) populatePlaylistDrawer();
     }
 
     function playTrackIndex(index) {
-      if (player && player.playVideoAt) {
-        player.playVideoAt(index);
-      }
+      if (player && player.playVideoAt) player.playVideoAt(index);
     }
 
     function populatePlaylistDrawer() {
       if (!player || !player.getPlaylist) return;
       const playlist = player.getPlaylist();
       const drawer = document.getElementById('playlist-drawer');
-      
       if (!playlist || playlist.length === 0) return;
 
-      currentTrackIndex = player.getPlaylistIndex ? player.getPlaylistIndex() : 0;
+      const currentTrackIndex = player.getPlaylistIndex ? player.getPlaylistIndex() : 0;
       drawer.innerHTML = '';
 
       playlist.forEach((id, idx) => {
         const item = document.createElement('div');
         item.className = `playlist-item ${idx === currentTrackIndex ? 'active-track' : ''}`;
         item.onclick = () => playTrackIndex(idx);
-
         item.innerHTML = `
           <span class="track-num">${idx + 1}</span>
           <div class="track-info-mini">
@@ -592,13 +542,8 @@
     function highlightActivePlaylistItem() {
       if (!player || !player.getPlaylistIndex) return;
       const idx = player.getPlaylistIndex();
-      const items = document.querySelectorAll('.playlist-item');
-      items.forEach((item, i) => {
-        if (i === idx) {
-          item.classList.add('active-track');
-        } else {
-          item.classList.remove('active-track');
-        }
+      document.querySelectorAll('.playlist-item').forEach((item, i) => {
+        item.classList.toggle('active-track', i === idx);
       });
     }
 
@@ -609,17 +554,13 @@
         document.getElementById('song-title').innerText = data.title;
         document.getElementById('artist-name').innerText = data.author || "YouTube Music";
 
-        // Update thumbnail
         if (data.video_id) {
           document.getElementById('album-thumb').src = `https://img.youtube.com/vi/${data.video_id}/hqdefault.jpg`;
         }
 
-        // Update item title inside playlist drawer if open
         const activeIndex = player.getPlaylistIndex ? player.getPlaylistIndex() : 0;
         const miniTitle = document.getElementById(`pl-title-${activeIndex}`);
-        if (miniTitle) {
-          miniTitle.innerText = data.title;
-        }
+        if (miniTitle) miniTitle.innerText = data.title;
       }
     }
 
@@ -627,9 +568,7 @@
       if (!player || !player.getCurrentTime || !isPlaying) return;
       const currentTime = player.getCurrentTime() || 0;
       const duration = player.getDuration() || 1;
-
-      const percent = (currentTime / duration) * 100;
-      document.getElementById('progress-fill').style.width = `${percent}%`;
+      document.getElementById('progress-fill').style.width = `${(currentTime / duration) * 100}%`;
 
       const formatTime = (sec) => {
         const m = Math.floor(sec / 60);
@@ -640,26 +579,15 @@
       document.getElementById('time-stamp').innerText = `${formatTime(currentTime)} / ${formatTime(duration)}`;
     }
 
-    // Horn Playback
     function playHorn() {
-      if (!hornAudio) {
-        hornAudio = new Audio('horn.mp3');
-      }
+      if (!hornAudio) hornAudio = new Audio('horn.mp3');
       hornAudio.currentTime = 0;
-
-      const playPromise = hornAudio.play();
-      if (playPromise !== undefined) {
-        playPromise.catch(error => {
-          console.warn("Audio playback failed or was blocked by browser:", error);
-        });
-      }
+      hornAudio.play().catch(err => console.warn("Audio blocked:", err));
     }
 
-    // Shayari Loop
     setInterval(() => {
       const shayariBox = document.getElementById('shayari-box');
       shayariBox.classList.add('fade-out');
-
       setTimeout(() => {
         currentShayariIndex = (currentShayariIndex + 1) % shayaris.length;
         shayariBox.innerText = shayaris[currentShayariIndex];
@@ -667,10 +595,9 @@
       }, 800);
     }, 6000);
 
-    // Live Clock Update
     setInterval(() => {
       const now = new Date();
-      document.getElementById('clock').innerText = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      document.getElementById('clock').innerText = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
     }, 1000);
   </script>
 </body>
