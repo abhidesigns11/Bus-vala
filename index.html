@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>बस वाला | Bus Vala</title>
   
-  <!-- Rozha One Font -->
+  <!-- Rozha One Font & FontAwesome Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Rozha+One&display=swap" rel="stylesheet">
@@ -28,7 +28,7 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
 
-    /* Main Viewport */
+    /* App Viewport */
     .app-viewport {
       position: relative;
       width: 100%;
@@ -40,7 +40,7 @@
       padding: 16px 20px 20px 20px;
     }
 
-    /* Dynamic Background Layer */
+    /* Background Image Layer */
     #bg-container {
       position: absolute;
       top: 0;
@@ -105,7 +105,7 @@
       text-shadow: 0px 4px 35px rgba(0, 0, 0, 0.85);
     }
 
-    /* Floating Side Horn Button */
+    /* Floating Horn Button */
     .horn-btn {
       position: absolute;
       left: 20px;
@@ -133,16 +133,95 @@
       transform: translateY(-50%) scale(1.05);
     }
 
-    /* Bottom Section */
+    /* Bottom Section Container */
     .bottom-section {
       width: 100%;
       max-width: 580px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       z-index: 10;
       margin-bottom: 5px;
+      position: relative;
+    }
+
+    /* Frosted Glass Playlist Modal Drawer */
+    .playlist-drawer {
+      width: 100%;
+      max-height: 280px;
+      background: rgba(25, 15, 15, 0.55);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      border-radius: 20px;
+      padding: 12px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(10px);
+      transition: all 0.3s ease;
+      position: absolute;
+      bottom: 110%;
+    }
+
+    .playlist-drawer.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .playlist-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 13px;
+      transition: background 0.2s ease;
+      gap: 10px;
+    }
+
+    .playlist-item:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .playlist-item.active-track {
+      background: rgba(255, 255, 255, 0.25);
+      font-weight: 600;
+    }
+
+    .track-num {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.6);
+      min-width: 20px;
+    }
+
+    .track-info-mini {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .track-title-mini {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: #fff;
+    }
+
+    .track-artist-mini {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.6);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     /* Auto-Changing Shayari Container */
@@ -153,7 +232,7 @@
     }
 
     .shayari-text {
-      font-size: clamp(0.95rem, 3.2vw, 1.15rem);
+      font-size: clamp(0.9rem, 3vw, 1.1rem);
       font-weight: 500;
       line-height: 1.4;
       color: #ffffff;
@@ -166,7 +245,7 @@
       opacity: 0;
     }
 
-    /* Frosted Glass UI Player */
+    /* Glass Player Controls Bar */
     .glass-player {
       width: 100%;
       background: rgba(255, 255, 255, 0.12);
@@ -252,7 +331,7 @@
     .player-controls {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
     }
 
     .ctrl-btn {
@@ -265,14 +344,14 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 28px;
-      height: 28px;
+      width: 30px;
+      height: 30px;
       border-radius: 50%;
     }
 
     .ctrl-btn:hover {
       color: #ffffff;
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.15);
     }
 
     .ctrl-btn.play-circle {
@@ -296,7 +375,7 @@
 </head>
 <body>
 
-  <!-- Background Layer -->
+  <!-- Dynamic Background Layer -->
   <div id="bg-container"></div>
 
   <div class="app-viewport">
@@ -321,9 +400,15 @@
 
     <!-- Bottom Section -->
     <div class="bottom-section">
+
+      <!-- Playlist Overlay Drawer (Opens on 3 Lines Button) -->
+      <div class="playlist-drawer" id="playlist-drawer">
+        <!-- Playlist Items dynamically populated -->
+      </div>
+
       <!-- Auto-Changing Hindi Shayari Text -->
       <div class="shayari-container">
-        <p class="shayari-text" id="shayari-box">नीम का पेड़ चंदन से कम नहीं, हमारा गुड़गाँव लंदन से कम नहीं।</p>
+        <p class="shayari-text" id="shayari-box">बुरी नजर वाले, तेरे बच्चे जियें; बड़े होकर, तेरा ही खून पियें!</p>
       </div>
 
       <!-- Glassmorphism Player -->
@@ -331,8 +416,8 @@
         <div class="track-left">
           <img class="album-art" src="bus1.jpg" id="album-thumb" alt="Album Cover" />
           <div class="track-details">
-            <span class="song-title" id="song-title">Loading Playlist...</span>
-            <span class="artist-name" id="artist-name">YouTube Music</span>
+            <span class="song-title" id="song-title">Tumhein Dekhen Meri Aankhen</span>
+            <span class="artist-name" id="artist-name">Alka Yagnik & Kumar Sanu</span>
             <div class="progress-box">
               <div class="progress-bar">
                 <div class="progress-fill" id="progress-fill"></div>
@@ -347,7 +432,8 @@
           <button class="ctrl-btn" onclick="prevTrack()"><i class="fa-solid fa-backward-step"></i></button>
           <button class="ctrl-btn play-circle" onclick="togglePlay()"><i class="fa-solid fa-play" id="play-icon"></i></button>
           <button class="ctrl-btn" onclick="nextTrack()"><i class="fa-solid fa-forward-step"></i></button>
-          <button class="ctrl-btn" onclick="switchBackground()" title="Switch Background"><i class="fa-solid fa-bars"></i></button>
+          <!-- 3-Lines Button toggles playlist view -->
+          <button class="ctrl-btn" onclick="togglePlaylistDrawer()" title="View Playlist"><i class="fa-solid fa-list-ul"></i></button>
         </div>
       </div>
     </div>
@@ -364,16 +450,16 @@
   <script>
     // Bus Background Images Array
     const bgImages = [
-      { name: "Bus View 1", url: "bus1.jpg" },
-      { name: "Bus View 2", url: "bus2.jpg" }
+      "bus1.jpg",
+      "bus2.jpg"
     ];
 
-    // Auto Rotating Hindi Shayari List
+    // Rotating Hindi Shayari List
     const shayaris = [
+      "बुरी नजर वाले, तेरे बच्चे जियें; बड़े होकर, तेरा ही खून पियें!",
       "नीम का पेड़ चंदन से कम नहीं, हमारा गुड़गाँव लंदन से कम नहीं।",
       "सफ़र खूबसूरत है मंज़िल से भी... खिड़की वाली सीट मसीहा!",
-      "हँस मत पगली वरना प्यार हो जाएगा तो प्यार हुआ क्या?",
-      "सफ़र लंबा है दोस्त बनाते रहिए, दिल मिले न मिले हाथ मिलाते रहिए।"
+      "हँस मत पगली वरना प्यार हो जाएगा तो प्यार हुआ क्या?"
     ];
 
     let currentBgIndex = 0;
@@ -381,18 +467,19 @@
     let player = null;
     let isPlaying = false;
     let hornAudio = null;
+    let currentTrackIndex = 0;
 
-    // Set initial background image
-    document.getElementById('bg-container').style.backgroundImage = `url('${bgImages[0].url}')`;
+    // Set initial background
+    document.getElementById('bg-container').style.backgroundImage = `url('${bgImages[0]}')`;
 
-    // Initialize YouTube Player with your YT Music Playlist
+    // YouTube API Initialization with your Playlist
     function onYouTubeIframeAPIReady() {
       player = new YT.Player('yt-player', {
         height: '100',
         width: '100',
         playerVars: {
           listType: 'playlist',
-          list: 'PLeatb7hupNV_AWUl_7ttbsKeCQh8tF5N4', // Your Playlist ID
+          list: 'PL0umg_TNpoZTTdZVIi5tfX69pRmoMFGna', // Playlist ID
           autoplay: 0,
           controls: 0
         },
@@ -406,6 +493,7 @@
     function onPlayerReady(event) {
       updateTrackInfo();
       setInterval(updateProgress, 1000);
+      populatePlaylistDrawer();
     }
 
     function onPlayerStateChange(event) {
@@ -413,11 +501,23 @@
       if (event.data === YT.PlayerState.PLAYING) {
         isPlaying = true;
         playIcon.className = 'fa-solid fa-pause';
-        updateTrackInfo();
+        onTrackChanged();
       } else {
         isPlaying = false;
         playIcon.className = 'fa-solid fa-play';
       }
+    }
+
+    // Triggered when track changes (Next/Prev/Select/Song end)
+    function onTrackChanged() {
+      updateTrackInfo();
+      rotateBackgroundImage();
+      highlightActivePlaylistItem();
+    }
+
+    function rotateBackgroundImage() {
+      currentBgIndex = (currentBgIndex + 1) % bgImages.length;
+      document.getElementById('bg-container').style.backgroundImage = `url('${bgImages[currentBgIndex]}')`;
     }
 
     function togglePlay() {
@@ -432,14 +532,12 @@
     function nextTrack() {
       if (player) {
         player.nextVideo();
-        setTimeout(updateTrackInfo, 1000);
       }
     }
 
     function prevTrack() {
       if (player) {
         player.previousVideo();
-        setTimeout(updateTrackInfo, 1000);
       }
     }
 
@@ -450,9 +548,58 @@
       }
     }
 
-    function switchBackground() {
-      currentBgIndex = (currentBgIndex + 1) % bgImages.length;
-      document.getElementById('bg-container').style.backgroundImage = `url('${bgImages[currentBgIndex].url}')`;
+    function togglePlaylistDrawer() {
+      const drawer = document.getElementById('playlist-drawer');
+      drawer.classList.toggle('active');
+      if (drawer.classList.contains('active')) {
+        populatePlaylistDrawer();
+      }
+    }
+
+    function playTrackIndex(index) {
+      if (player && player.playVideoAt) {
+        player.playVideoAt(index);
+      }
+    }
+
+    function populatePlaylistDrawer() {
+      if (!player || !player.getPlaylist) return;
+      const playlist = player.getPlaylist();
+      const drawer = document.getElementById('playlist-drawer');
+      
+      if (!playlist || playlist.length === 0) return;
+
+      currentTrackIndex = player.getPlaylistIndex ? player.getPlaylistIndex() : 0;
+      drawer.innerHTML = '';
+
+      playlist.forEach((id, idx) => {
+        const item = document.createElement('div');
+        item.className = `playlist-item ${idx === currentTrackIndex ? 'active-track' : ''}`;
+        item.onclick = () => playTrackIndex(idx);
+
+        item.innerHTML = `
+          <span class="track-num">${idx + 1}</span>
+          <div class="track-info-mini">
+            <span class="track-title-mini" id="pl-title-${idx}">Track ${idx + 1}</span>
+            <span class="track-artist-mini">YT Music</span>
+          </div>
+        `;
+        drawer.appendChild(item);
+      });
+      highlightActivePlaylistItem();
+    }
+
+    function highlightActivePlaylistItem() {
+      if (!player || !player.getPlaylistIndex) return;
+      const idx = player.getPlaylistIndex();
+      const items = document.querySelectorAll('.playlist-item');
+      items.forEach((item, i) => {
+        if (i === idx) {
+          item.classList.add('active-track');
+        } else {
+          item.classList.remove('active-track');
+        }
+      });
     }
 
     function updateTrackInfo() {
@@ -461,10 +608,17 @@
       if (data && data.title) {
         document.getElementById('song-title').innerText = data.title;
         document.getElementById('artist-name').innerText = data.author || "YouTube Music";
-        
-        // Use video thumbnail if available
+
+        // Update thumbnail
         if (data.video_id) {
           document.getElementById('album-thumb').src = `https://img.youtube.com/vi/${data.video_id}/hqdefault.jpg`;
+        }
+
+        // Update item title inside playlist drawer if open
+        const activeIndex = player.getPlaylistIndex ? player.getPlaylistIndex() : 0;
+        const miniTitle = document.getElementById(`pl-title-${activeIndex}`);
+        if (miniTitle) {
+          miniTitle.innerText = data.title;
         }
       }
     }
@@ -501,7 +655,7 @@
       }
     }
 
-    // Shayari Rotation Loop (6 Seconds)
+    // Shayari Loop
     setInterval(() => {
       const shayariBox = document.getElementById('shayari-box');
       shayariBox.classList.add('fade-out');
