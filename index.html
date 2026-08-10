@@ -1,13 +1,18 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="gu">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>बस वाला | Bus Vala</title>
+  <title>બસ વાળો | Bus Valo</title>
   
+  <!-- Preload Background Images for Instant Loading -->
+  <link rel="preload" href="bus1.jpg" as="image" />
+  <link rel="preload" href="bus2.jpg" as="image" />
+
+  <!-- Google Fonts for Bold Gujarati Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Rozha+One&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Vadodara:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
   <style>
@@ -25,7 +30,7 @@
       overflow: hidden;
       background-color: #05020a;
       color: #fff;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-family: 'Hind Vadodara', -apple-system, sans-serif;
     }
 
     .app-viewport {
@@ -39,7 +44,7 @@
       padding: 16px 16px 24px 16px;
     }
 
-    /* Background Image Layer */
+    /* Preloaded Background Layer */
     #bg-container {
       position: absolute;
       top: 0;
@@ -83,10 +88,10 @@
       box-shadow: 0 0 6px #2ed573;
     }
 
-    /* Title Positioned Upward (Centered) */
+    /* Title Positioned Upward (Gujarati Font) */
     .center-top-branding {
       position: absolute;
-      top: 26%;
+      top: 24%;
       left: 50%;
       transform: translateX(-50%);
       text-align: center;
@@ -96,11 +101,12 @@
     }
 
     .main-title {
-      font-family: 'Rozha One', serif;
-      font-size: clamp(2.8rem, 10vw, 4.5rem);
-      font-weight: 400;
+      font-family: 'Hind Vadodara', sans-serif;
+      font-size: clamp(3.2rem, 11vw, 5rem);
+      font-weight: 700;
       color: #ffffff;
       text-shadow: 0px 4px 30px rgba(0, 0, 0, 0.85);
+      letter-spacing: 1px;
     }
 
     /* Floating Horn Button */
@@ -120,10 +126,11 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      font-size: 12px;
+      font-size: 13px;
       z-index: 10;
       transition: all 0.3s ease;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      font-family: 'Hind Vadodara', sans-serif;
     }
 
     /* Bottom Section Container */
@@ -216,7 +223,7 @@
 
     .shayari-text {
       font-size: clamp(0.9rem, 3.5vw, 1.05rem);
-      font-weight: 500;
+      font-weight: 600;
       line-height: 1.35;
       color: #ffffff;
       text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
@@ -228,7 +235,7 @@
       opacity: 0;
     }
 
-    /* Exact Mobile Glass Player Box Match */
+    /* Mobile Glass Player Box */
     .glass-player {
       width: 100%;
       background: rgba(255, 255, 255, 0.12);
@@ -284,29 +291,43 @@
       text-overflow: ellipsis;
     }
 
+    /* Touch & Drag Interactive Seek Bar */
     .progress-box {
       width: 100%;
       display: flex;
       flex-direction: column;
-      gap: 5px;
+      gap: 4px;
       margin-top: 4px;
     }
 
-    .progress-bar {
+    .seek-slider {
+      -webkit-appearance: none;
       width: 100%;
-      height: 3px;
-      background: rgba(255, 255, 255, 0.25);
+      height: 4px;
       border-radius: 2px;
-      position: relative;
-      overflow: hidden;
+      background: rgba(255, 255, 255, 0.3);
+      outline: none;
+      cursor: pointer;
     }
 
-    .progress-fill {
-      width: 0%;
-      height: 100%;
+    .seek-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
       background: #ffffff;
-      border-radius: 2px;
-      transition: width 0.3s linear;
+      box-shadow: 0 0 6px rgba(0,0,0,0.5);
+      cursor: pointer;
+    }
+
+    .seek-slider::-moz-range-thumb {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #ffffff;
+      box-shadow: 0 0 6px rgba(0,0,0,0.5);
+      cursor: pointer;
     }
 
     .time-stamp {
@@ -367,19 +388,19 @@
     <header class="top-bar">
       <span id="clock">17:40</span>
       <div class="status-pill">
-        <span class="green-dot"></span> <span id="passenger-count">1</span> on the highway
+        <span class="green-dot"></span> <span id="passenger-count">1</span> રસ્તા પર
       </div>
     </header>
 
-    <!-- Main Title -->
+    <!-- Main Title in Gujarati -->
     <main class="center-top-branding">
-      <h1 class="main-title">बस वाला</h1>
+      <h1 class="main-title">બસ વાળો</h1>
     </main>
 
-    <!-- Floating Horn Button -->
+    <!-- Floating Horn Button in Gujarati -->
     <button class="horn-btn" onclick="playHorn()">
       <i class="fa-solid fa-volume-high"></i>
-      <span>हॉर्न ओके प्लीज</span>
+      <span>હોર્ન ઓકે પ્લીઝ</span>
     </button>
 
     <!-- Bottom Section Container -->
@@ -388,22 +409,22 @@
       <!-- Playlist Overlay Drawer -->
       <div class="playlist-drawer" id="playlist-drawer"></div>
 
-      <!-- Auto-Changing Shayari Text -->
+      <!-- Auto-Changing Gujarati Shayari Text -->
       <div class="shayari-container">
-        <p class="shayari-text" id="shayari-box">बुरी नजर वाले, तेरे बच्चे जियें; बड़े होकर, तेरा ही खून पियें!</p>
+        <p class="shayari-text" id="shayari-box">બુરી નજર વાળા, તારા બાળકો જીવે; મોટા થઈને, તારું જ લોહી પીવે!</p>
       </div>
 
-      <!-- Native Mobile Stacked Glass Player Box -->
+      <!-- Native Mobile Glass Player Box -->
       <div class="glass-player">
         <div class="track-top-row">
           <img class="album-art" src="bus1.jpg" id="album-thumb" alt="Album Cover" />
           <div class="track-details">
-            <span class="song-title" id="song-title">Tumhein Dekhen Meri Aankhen</span>
-            <span class="artist-name" id="artist-name">Alka Yagnik & Kumar Sanu</span>
+            <span class="song-title" id="song-title">લોડ થઈ રહ્યું છે...</span>
+            <span class="artist-name" id="artist-name">YouTube Music</span>
+            
+            <!-- Draggable Seek Bar -->
             <div class="progress-box">
-              <div class="progress-bar">
-                <div class="progress-fill" id="progress-fill"></div>
-              </div>
+              <input type="range" id="seek-slider" class="seek-slider" value="0" max="100" oninput="seekToPosition(this.value)" />
               <span class="time-stamp" id="time-stamp">0:00 / 0:00</span>
             </div>
           </div>
@@ -429,16 +450,17 @@
   <script>
     const bgImages = ["bus1.jpg", "bus2.jpg"];
     const shayaris = [
-      "बुरी नजर वाले, तेरे बच्चे जियें; बड़े होकर, तेरा ही खून पियें!",
-      "नीम का पेड़ चंदन से कम नहीं, हमारा गुड़गाँव लंदन से कम नहीं।",
-      "सफ़र खूबसूरत है मंज़िल से भी... खिड़की वाली सीट मसीहा!",
-      "हँस मत पगली वरना प्यार हो जाएगा तो प्यार हुआ क्या?"
+      "બુરી નજર વાળા, તારા બાળકો જીવે; મોટા થઈને, તારું જ લોહી પીવે!",
+      "લીમડાનું ઝાડ ચંદનથી ઓછું નથી, અમારું ગુજરાત લંડનથી ઓછું નથી.",
+      "સફર સુંદર છે મંઝિલ કરતા પણ... બારી વાળી સીટ મુબારક!",
+      "હસ મા પતલી પ્રેમ થઈ જશે, પ્રેમ થયો તો પછી શું થશે?"
     ];
 
     let currentBgIndex = 0;
     let currentShayariIndex = 0;
     let player = null;
     let isPlaying = false;
+    let isUserSeeking = false;
     let hornAudio = null;
 
     document.getElementById('bg-container').style.backgroundImage = `url('${bgImages[0]}')`;
@@ -449,7 +471,7 @@
         width: '100',
         playerVars: {
           listType: 'playlist',
-          list: 'PL0umg_TNpoZTTdZVIi5tfX69pRmoMFGna',
+          list: 'PLK0hZ_GbHXV0',
           autoplay: 0,
           controls: 0
         },
@@ -504,6 +526,14 @@
       }
     }
 
+    /* Seek / Drag Functionality */
+    function seekToPosition(percent) {
+      if (!player || !player.getDuration) return;
+      const duration = player.getDuration();
+      const seekTime = (percent / 100) * duration;
+      player.seekTo(seekTime, true);
+    }
+
     function togglePlaylistDrawer() {
       const drawer = document.getElementById('playlist-drawer');
       drawer.classList.toggle('active');
@@ -531,7 +561,7 @@
           <span class="track-num">${idx + 1}</span>
           <div class="track-info-mini">
             <span class="track-title-mini" id="pl-title-${idx}">Track ${idx + 1}</span>
-            <span class="track-artist-mini">YT Music</span>
+            <span class="track-artist-mini">YouTube Music</span>
           </div>
         `;
         drawer.appendChild(item);
@@ -568,7 +598,9 @@
       if (!player || !player.getCurrentTime || !isPlaying) return;
       const currentTime = player.getCurrentTime() || 0;
       const duration = player.getDuration() || 1;
-      document.getElementById('progress-fill').style.width = `${(currentTime / duration) * 100}%`;
+      
+      const seekSlider = document.getElementById('seek-slider');
+      seekSlider.value = (currentTime / duration) * 100;
 
       const formatTime = (sec) => {
         const m = Math.floor(sec / 60);
