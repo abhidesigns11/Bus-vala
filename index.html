@@ -4,15 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>બસ વાળો | Bus Valo</title>
-  
-  <!-- Preload Background Images for Instant Loading -->
-  <link rel="preload" href="bus1.jpg" as="image" />
-  <link rel="preload" href="bus2.jpg" as="image" />
 
-  <!-- Google Fonts for Bold Gujarati Typography -->
+  <!-- Preconnect & Asynchronous Fonts for Fast Loading -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Hind+Vadodara:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Vadodara:wght@600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
   <style>
@@ -33,6 +29,38 @@
       font-family: 'Hind Vadodara', -apple-system, sans-serif;
     }
 
+    /* Start Screen Overlay to Unlock Audio in Non-Chrome Browsers */
+    #start-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(5, 2, 10, 0.92);
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      transition: opacity 0.5s ease;
+    }
+
+    .start-btn {
+      background: #ffffff;
+      color: #000;
+      border: none;
+      padding: 12px 28px;
+      border-radius: 30px;
+      font-size: 16px;
+      font-weight: 700;
+      font-family: 'Hind Vadodara', sans-serif;
+      box-shadow: 0 4px 20px rgba(255, 255, 255, 0.3);
+    }
+
     .app-viewport {
       position: relative;
       width: 100%;
@@ -44,7 +72,6 @@
       padding: 16px 16px 24px 16px;
     }
 
-    /* Preloaded Background Layer */
     #bg-container {
       position: absolute;
       top: 0;
@@ -54,11 +81,11 @@
       background-size: cover;
       background-position: center bottom;
       background-repeat: no-repeat;
-      transition: background-image 0.8s ease-in-out;
+      transition: background-image 0.6s ease-in-out;
       z-index: 1;
+      will-change: background-image;
     }
 
-    /* Top Status Bar */
     .top-bar {
       width: 100%;
       display: flex;
@@ -69,11 +96,11 @@
     }
 
     .status-pill {
-      background: rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.18);
       padding: 5px 14px;
       border-radius: 20px;
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       display: flex;
       align-items: center;
       gap: 6px;
@@ -88,7 +115,6 @@
       box-shadow: 0 0 6px #2ed573;
     }
 
-    /* Title Positioned Upward (Gujarati Font) */
     .center-top-branding {
       position: absolute;
       top: 24%;
@@ -105,35 +131,30 @@
       font-size: clamp(3.2rem, 11vw, 5rem);
       font-weight: 700;
       color: #ffffff;
-      text-shadow: 0px 4px 30px rgba(0, 0, 0, 0.85);
-      letter-spacing: 1px;
+      text-shadow: 0px 4px 20px rgba(0, 0, 0, 0.85);
     }
 
-    /* Floating Horn Button */
     .horn-btn {
       position: absolute;
       left: 16px;
       top: 54%;
       transform: translateY(-50%);
-      background: rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.18);
       border: 1px solid rgba(255, 255, 255, 0.25);
       color: white;
       padding: 8px 16px;
       border-radius: 25px;
-      backdrop-filter: blur(15px);
-      -webkit-backdrop-filter: blur(15px);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       cursor: pointer;
       display: flex;
       align-items: center;
       gap: 8px;
       font-size: 13px;
       z-index: 10;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
       font-family: 'Hind Vadodara', sans-serif;
     }
 
-    /* Bottom Section Container */
     .bottom-section {
       width: 100%;
       max-width: 420px;
@@ -145,21 +166,19 @@
       position: relative;
     }
 
-    /* Playlist Drawer Overlay */
     .playlist-drawer {
       width: 100%;
-      max-height: 260px;
-      background: rgba(20, 10, 10, 0.65);
+      max-height: 240px;
+      background: rgba(15, 8, 20, 0.85);
       border: 1px solid rgba(255, 255, 255, 0.2);
-      backdrop-filter: blur(30px);
-      -webkit-backdrop-filter: blur(30px);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       border-radius: 24px;
       padding: 12px;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
       gap: 6px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
       opacity: 0;
       pointer-events: none;
       transform: translateY(10px);
@@ -185,36 +204,10 @@
     }
 
     .playlist-item.active-track {
-      background: rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.22);
       font-weight: 600;
     }
 
-    .track-num {
-      font-size: 11px;
-      color: rgba(255, 255, 255, 0.6);
-      min-width: 16px;
-    }
-
-    .track-info-mini {
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-      overflow: hidden;
-    }
-
-    .track-title-mini {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      color: #fff;
-    }
-
-    .track-artist-mini {
-      font-size: 11px;
-      color: rgba(255, 255, 255, 0.6);
-    }
-
-    /* Shayari Text */
     .shayari-container {
       width: 100%;
       text-align: center;
@@ -228,26 +221,22 @@
       color: #ffffff;
       text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
       opacity: 1;
-      transition: opacity 0.8s ease-in-out;
+      transition: opacity 0.6s ease-in-out;
     }
 
-    .shayari-text.fade-out {
-      opacity: 0;
-    }
+    .shayari-text.fade-out { opacity: 0; }
 
-    /* Mobile Glass Player Box */
     .glass-player {
       width: 100%;
-      background: rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.15);
       border: 1px solid rgba(255, 255, 255, 0.22);
-      backdrop-filter: blur(30px);
-      -webkit-backdrop-filter: blur(30px);
-      border-radius: 36px;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 32px;
       padding: 16px;
       display: flex;
       flex-direction: column;
       gap: 12px;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
     }
 
     .track-top-row {
@@ -258,8 +247,8 @@
     }
 
     .album-art {
-      width: 60px;
-      height: 60px;
+      width: 58px;
+      height: 58px;
       border-radius: 50%;
       object-fit: cover;
       border: 1px solid rgba(255, 255, 255, 0.3);
@@ -291,7 +280,6 @@
       text-overflow: ellipsis;
     }
 
-    /* Touch & Drag Interactive Seek Bar */
     .progress-box {
       width: 100%;
       display: flex;
@@ -312,22 +300,10 @@
 
     .seek-slider::-webkit-slider-thumb {
       -webkit-appearance: none;
-      appearance: none;
       width: 12px;
       height: 12px;
       border-radius: 50%;
       background: #ffffff;
-      box-shadow: 0 0 6px rgba(0,0,0,0.5);
-      cursor: pointer;
-    }
-
-    .seek-slider::-moz-range-thumb {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: #ffffff;
-      box-shadow: 0 0 6px rgba(0,0,0,0.5);
-      cursor: pointer;
     }
 
     .time-stamp {
@@ -335,18 +311,16 @@
       color: rgba(255, 255, 255, 0.6);
     }
 
-    /* Player Controls Centered Row */
     .player-controls {
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 18px;
       width: 100%;
-      margin-top: 2px;
     }
 
     .ctrl-btn {
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.12);
       border: none;
       color: rgba(255, 255, 255, 0.9);
       font-size: 13px;
@@ -357,7 +331,6 @@
       width: 34px;
       height: 34px;
       border-radius: 50%;
-      transition: all 0.2s ease;
     }
 
     .ctrl-btn.play-circle {
@@ -368,7 +341,6 @@
       font-size: 16px;
     }
 
-    /* Hidden YouTube Container */
     #yt-player-container {
       position: absolute;
       width: 1px;
@@ -380,11 +352,14 @@
 </head>
 <body>
 
-  <!-- Dynamic Background Layer -->
+  <!-- Start Overlay for Browser Audio Permission -->
+  <div id="start-overlay" onclick="startApp()">
+    <button class="start-btn">શરૂ કરો / Play</button>
+  </div>
+
   <div id="bg-container"></div>
 
   <div class="app-viewport">
-    <!-- Top Status Bar -->
     <header class="top-bar">
       <span id="clock">17:40</span>
       <div class="status-pill">
@@ -392,29 +367,22 @@
       </div>
     </header>
 
-    <!-- Main Title in Gujarati -->
     <main class="center-top-branding">
       <h1 class="main-title">બસ વાળો</h1>
     </main>
 
-    <!-- Floating Horn Button in Gujarati -->
     <button class="horn-btn" onclick="playHorn()">
       <i class="fa-solid fa-volume-high"></i>
       <span>હોર્ન ઓકે પ્લીઝ</span>
     </button>
 
-    <!-- Bottom Section Container -->
     <div class="bottom-section">
-
-      <!-- Playlist Overlay Drawer -->
       <div class="playlist-drawer" id="playlist-drawer"></div>
 
-      <!-- Auto-Changing Gujarati Shayari Text -->
       <div class="shayari-container">
         <p class="shayari-text" id="shayari-box">બુરી નજર વાળા, તારા બાળકો જીવે; મોટા થઈને, તારું જ લોહી પીવે!</p>
       </div>
 
-      <!-- Native Mobile Glass Player Box -->
       <div class="glass-player">
         <div class="track-top-row">
           <img class="album-art" src="bus1.jpg" id="album-thumb" alt="Album Cover" />
@@ -422,7 +390,6 @@
             <span class="song-title" id="song-title">લોડ થઈ રહ્યું છે...</span>
             <span class="artist-name" id="artist-name">YouTube Music</span>
             
-            <!-- Draggable Seek Bar -->
             <div class="progress-box">
               <input type="range" id="seek-slider" class="seek-slider" value="0" max="100" oninput="seekToPosition(this.value)" />
               <span class="time-stamp" id="time-stamp">0:00 / 0:00</span>
@@ -431,19 +398,17 @@
         </div>
 
         <div class="player-controls">
-          <button class="ctrl-btn" onclick="toggleShuffle()" title="Shuffle"><i class="fa-solid fa-shuffle"></i></button>
+          <button class="ctrl-btn" onclick="toggleShuffle()"><i class="fa-solid fa-shuffle"></i></button>
           <button class="ctrl-btn" onclick="prevTrack()"><i class="fa-solid fa-backward-step"></i></button>
           <button class="ctrl-btn play-circle" onclick="togglePlay()"><i class="fa-solid fa-play" id="play-icon"></i></button>
           <button class="ctrl-btn" onclick="nextTrack()"><i class="fa-solid fa-forward-step"></i></button>
-          <button class="ctrl-btn" onclick="togglePlaylistDrawer()" title="View Playlist"><i class="fa-solid fa-list-ul"></i></button>
+          <button class="ctrl-btn" onclick="togglePlaylistDrawer()"><i class="fa-solid fa-list-ul"></i></button>
         </div>
       </div>
     </div>
   </div>
 
-  <div id="yt-player-container">
-    <div id="yt-player"></div>
-  </div>
+  <div id="yt-player-container"><div id="yt-player"></div></div>
 
   <script src="https://www.youtube.com/iframe_api"></script>
 
@@ -460,10 +425,21 @@
     let currentShayariIndex = 0;
     let player = null;
     let isPlaying = false;
-    let isUserSeeking = false;
     let hornAudio = null;
 
+    // Cache background images
+    bgImages.forEach(src => { const img = new Image(); img.src = src; });
     document.getElementById('bg-container').style.backgroundImage = `url('${bgImages[0]}')`;
+
+    function startApp() {
+      const overlay = document.getElementById('start-overlay');
+      overlay.style.opacity = '0';
+      setTimeout(() => overlay.style.display = 'none', 500);
+
+      if (player && player.playVideo) {
+        player.playVideo();
+      }
+    }
 
     function onYouTubeIframeAPIReady() {
       player = new YT.Player('yt-player', {
@@ -473,7 +449,8 @@
           listType: 'playlist',
           list: 'PLK0hZ_GbHXV0',
           autoplay: 0,
-          controls: 0
+          controls: 0,
+          playsinline: 1
         },
         events: {
           'onReady': onPlayerReady,
@@ -482,7 +459,7 @@
       });
     }
 
-    function onPlayerReady(event) {
+    function onPlayerReady() {
       updateTrackInfo();
       setInterval(updateProgress, 1000);
       populatePlaylistDrawer();
@@ -493,22 +470,11 @@
       if (event.data === YT.PlayerState.PLAYING) {
         isPlaying = true;
         playIcon.className = 'fa-solid fa-pause';
-        onTrackChanged();
+        updateTrackInfo();
       } else {
         isPlaying = false;
         playIcon.className = 'fa-solid fa-play';
       }
-    }
-
-    function onTrackChanged() {
-      updateTrackInfo();
-      rotateBackgroundImage();
-      highlightActivePlaylistItem();
-    }
-
-    function rotateBackgroundImage() {
-      currentBgIndex = (currentBgIndex + 1) % bgImages.length;
-      document.getElementById('bg-container').style.backgroundImage = `url('${bgImages[currentBgIndex]}')`;
     }
 
     function togglePlay() {
@@ -526,54 +492,35 @@
       }
     }
 
-    /* Seek / Drag Functionality */
     function seekToPosition(percent) {
       if (!player || !player.getDuration) return;
       const duration = player.getDuration();
-      const seekTime = (percent / 100) * duration;
-      player.seekTo(seekTime, true);
+      player.seekTo((percent / 100) * duration, true);
     }
 
     function togglePlaylistDrawer() {
       const drawer = document.getElementById('playlist-drawer');
       drawer.classList.toggle('active');
-      if (drawer.classList.contains('active')) populatePlaylistDrawer();
-    }
-
-    function playTrackIndex(index) {
-      if (player && player.playVideoAt) player.playVideoAt(index);
     }
 
     function populatePlaylistDrawer() {
       if (!player || !player.getPlaylist) return;
       const playlist = player.getPlaylist();
       const drawer = document.getElementById('playlist-drawer');
-      if (!playlist || playlist.length === 0) return;
+      if (!playlist) return;
 
-      const currentTrackIndex = player.getPlaylistIndex ? player.getPlaylistIndex() : 0;
       drawer.innerHTML = '';
-
       playlist.forEach((id, idx) => {
         const item = document.createElement('div');
-        item.className = `playlist-item ${idx === currentTrackIndex ? 'active-track' : ''}`;
-        item.onclick = () => playTrackIndex(idx);
+        item.className = 'playlist-item';
+        item.onclick = () => player.playVideoAt(idx);
         item.innerHTML = `
-          <span class="track-num">${idx + 1}</span>
-          <div class="track-info-mini">
-            <span class="track-title-mini" id="pl-title-${idx}">Track ${idx + 1}</span>
-            <span class="track-artist-mini">YouTube Music</span>
+          <span style="font-size:11px; opacity:0.6;">${idx + 1}</span>
+          <div style="flex:1; overflow:hidden;">
+            <div style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Track ${idx + 1}</div>
           </div>
         `;
         drawer.appendChild(item);
-      });
-      highlightActivePlaylistItem();
-    }
-
-    function highlightActivePlaylistItem() {
-      if (!player || !player.getPlaylistIndex) return;
-      const idx = player.getPlaylistIndex();
-      document.querySelectorAll('.playlist-item').forEach((item, i) => {
-        item.classList.toggle('active-track', i === idx);
       });
     }
 
@@ -587,10 +534,6 @@
         if (data.video_id) {
           document.getElementById('album-thumb').src = `https://img.youtube.com/vi/${data.video_id}/hqdefault.jpg`;
         }
-
-        const activeIndex = player.getPlaylistIndex ? player.getPlaylistIndex() : 0;
-        const miniTitle = document.getElementById(`pl-title-${activeIndex}`);
-        if (miniTitle) miniTitle.innerText = data.title;
       }
     }
 
@@ -599,8 +542,7 @@
       const currentTime = player.getCurrentTime() || 0;
       const duration = player.getDuration() || 1;
       
-      const seekSlider = document.getElementById('seek-slider');
-      seekSlider.value = (currentTime / duration) * 100;
+      document.getElementById('seek-slider').value = (currentTime / duration) * 100;
 
       const formatTime = (sec) => {
         const m = Math.floor(sec / 60);
@@ -614,7 +556,7 @@
     function playHorn() {
       if (!hornAudio) hornAudio = new Audio('horn.mp3');
       hornAudio.currentTime = 0;
-      hornAudio.play().catch(err => console.warn("Audio blocked:", err));
+      hornAudio.play().catch(err => console.warn(err));
     }
 
     setInterval(() => {
@@ -624,7 +566,7 @@
         currentShayariIndex = (currentShayariIndex + 1) % shayaris.length;
         shayariBox.innerText = shayaris[currentShayariIndex];
         shayariBox.classList.remove('fade-out');
-      }, 800);
+      }, 600);
     }, 6000);
 
     setInterval(() => {
