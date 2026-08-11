@@ -175,7 +175,7 @@
 
     .shayari-text.fade-out { opacity: 0; }
 
-    /* Horizontal Footer Row (Player Bar + YT Music Button Side by Side) */
+    /* Horizontal Footer Row */
     .player-row-wrapper {
       width: 100%;
       display: flex;
@@ -250,9 +250,10 @@
       cursor: pointer;
     }
 
+    /* Fixed white block glitch: width set back to 10px */
     .seek-slider::-webkit-slider-thumb {
       -webkit-appearance: none;
-      width: 100px;
+      width: 10px;
       height: 10px;
       border-radius: 50%;
       background: #ffffff;
@@ -293,7 +294,6 @@
       font-size: 12px;
     }
 
-    /* YouTube Music Side Button Placed Next to Player Bar */
     .ytmusic-side-btn {
       width: 44px;
       height: 44px;
@@ -377,33 +377,13 @@
       pointer-events: none;
     }
 
-    /* Desktop Adjustments */
     @media screen and (min-width: 768px) {
-      #bg-container {
-        background-position: center center;
-      }
-
-      .app-viewport {
-        max-width: 1200px;
-        padding: 24px;
-      }
-
-      .horn-btn {
-        left: 32px;
-        top: 50%;
-      }
-
-      .center-top-branding {
-        top: 12%;
-      }
-
-      .main-title {
-        font-size: 5.5rem;
-      }
-
-      .bottom-section {
-        max-width: 480px;
-      }
+      #bg-container { background-position: center center; }
+      .app-viewport { max-width: 1200px; padding: 24px; }
+      .horn-btn { left: 32px; top: 50%; }
+      .center-top-branding { top: 12%; }
+      .main-title { font-size: 5.5rem; }
+      .bottom-section { max-width: 480px; }
     }
   </style>
 </head>
@@ -436,7 +416,7 @@
       <!-- Playlist Queue Drawer -->
       <div class="playlist-drawer" id="playlist-drawer">
         <div class="drawer-header">
-          <span>PLAYLIST QUEUE (14)</span>
+          <span id="playlist-count-header">PLAYLIST QUEUE</span>
           <i class="fa-solid fa-xmark" style="cursor:pointer;" onclick="togglePlaylistDrawer()"></i>
         </div>
         <div id="playlist-items-wrapper"></div>
@@ -446,7 +426,7 @@
         <p class="shayari-text" id="shayari-box">બુરી નજર વાળા, તારા બાળકો જીવે; મોટા થઈને, તારું જ લોહી પીવે!</p>
       </div>
 
-      <!-- Player Bar & YouTube Music Button Side-by-Side -->
+      <!-- Player Bar & YouTube Music Button -->
       <div class="player-row-wrapper">
         <div class="glass-player">
           <img class="album-art" src="bus1.jpg" id="album-thumb" alt="Album Cover" />
@@ -481,6 +461,16 @@
   <script src="https://www.youtube.com/iframe_api"></script>
 
   <script>
+    // Song titles list to display in playlist queue drawer
+    const trackListNames = [
+      "Prem To Moto Rog Se",
+      "Tari Aakho Nu Afeen",
+      "Gujarati Folk Beats",
+      "Nadi Dosh Theme",
+      "Char Char Bangdi Valo",
+      "Bus Valo Track 6"
+    ];
+
     const ua = navigator.userAgent || navigator.vendor || window.opera;
     const isInstagram = /Instagram/i.test(ua);
 
@@ -580,12 +570,16 @@
 
     function populatePlaylistDrawer() {
       if (!player || !player.getPlaylist) return;
-      const playlist = player.getPlaylist();
+      const playlist = player.getPlaylist() || [];
       const wrapper = document.getElementById('playlist-items-wrapper');
-      if (!playlist) return;
+      
+      document.getElementById('playlist-count-header').innerText = `PLAYLIST QUEUE (${playlist.length || trackListNames.length})`;
 
       wrapper.innerHTML = '';
-      playlist.forEach((id, idx) => {
+      const totalCount = playlist.length || trackListNames.length;
+
+      for (let idx = 0; idx < totalCount; idx++) {
+        const titleText = trackListNames[idx] || `Track ${idx + 1}`;
         const item = document.createElement('div');
         item.className = 'playlist-item';
         item.onclick = () => {
@@ -595,12 +589,12 @@
         item.innerHTML = `
           <div style="display:flex; align-items:center; gap:10px; overflow:hidden;">
             <span style="font-size:11px; color:#ff6b35; font-weight:700;">${idx + 1}</span>
-            <div style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Track ${idx + 1}</div>
+            <div style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${titleText}</div>
           </div>
           <i class="fa-solid fa-play" style="font-size:10px; opacity:0.5;"></i>
         `;
         wrapper.appendChild(item);
-      });
+      }
     }
 
     function updateTrackInfo() {
