@@ -67,6 +67,7 @@
       justify-content: space-between;
       align-items: center;
       padding: 16px;
+      padding-bottom: 60px; /* Safe padding for bottom controls */
       margin: 0 auto;
     }
 
@@ -180,25 +181,25 @@
       backdrop-filter: blur(24px);
       -webkit-backdrop-filter: blur(24px);
       border-radius: 20px;
-      padding: 10px 14px;
+      padding: 10px 12px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 10px;
+      gap: 8px;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
     }
 
     .left-track-info {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
       width: 32%;
       min-width: 0;
     }
 
     .album-art {
-      width: 44px;
-      height: 44px;
+      width: 42px;
+      height: 42px;
       border-radius: 8px;
       object-fit: cover;
       flex-shrink: 0;
@@ -212,7 +213,7 @@
     }
 
     .song-title {
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 700;
       color: #ffffff;
       white-space: nowrap;
@@ -221,7 +222,7 @@
     }
 
     .artist-name {
-      font-size: 11px;
+      font-size: 10px;
       color: rgba(255, 255, 255, 0.5);
       white-space: nowrap;
       overflow: hidden;
@@ -233,8 +234,8 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      width: 32%;
-      gap: 4px;
+      width: 34%;
+      gap: 3px;
     }
 
     .seek-slider {
@@ -258,7 +259,7 @@
     }
 
     .time-stamp {
-      font-size: 10px;
+      font-size: 9px;
       color: rgba(255, 255, 255, 0.6);
       font-variant-numeric: tabular-nums;
       letter-spacing: 0.5px;
@@ -268,7 +269,7 @@
     .player-controls {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
       flex-shrink: 0;
     }
 
@@ -276,7 +277,7 @@
       background: transparent;
       border: none;
       color: rgba(255, 255, 255, 0.9);
-      font-size: 14px;
+      font-size: 13px;
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -287,21 +288,21 @@
     .ctrl-btn.play-circle {
       background: #ffffff;
       color: #000000;
-      width: 38px;
-      height: 38px;
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
-      font-size: 14px;
+      font-size: 13px;
     }
 
-    /* Floating Spotify Icon at Bottom Right */
+    /* Floating Spotify Icon Fixed position within screen boundaries */
     .floating-app-btn {
-      position: absolute;
-      right: 0;
-      bottom: -52px;
+      position: fixed;
+      right: 14px;
+      bottom: 14px;
       width: 38px;
       height: 38px;
       background: #121212;
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.15);
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -310,10 +311,10 @@
       font-size: 20px;
       text-decoration: none;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
-      z-index: 12;
+      z-index: 100;
     }
 
-    /* Playlist Drawer Matching Reference Screenshot */
+    /* Playlist Drawer */
     .playlist-drawer {
       width: 100%;
       max-height: 280px;
@@ -357,8 +358,8 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 10px 12px;
-      border-radius: 12px;
+      padding: 8px 10px;
+      border-radius: 10px;
       cursor: pointer;
       background: rgba(255, 255, 255, 0.02);
       border: 1px solid transparent;
@@ -372,12 +373,12 @@
     .item-left {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       min-width: 0;
     }
 
     .track-num {
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 700;
       color: #ff5a1f;
       width: 14px;
@@ -390,7 +391,7 @@
     }
 
     .item-title {
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 600;
       color: #ffffff;
       white-space: nowrap;
@@ -399,7 +400,7 @@
     }
 
     .item-artist {
-      font-size: 11px;
+      font-size: 10px;
       color: rgba(255, 255, 255, 0.45);
       white-space: nowrap;
       overflow: hidden;
@@ -407,7 +408,7 @@
     }
 
     .item-duration {
-      font-size: 11px;
+      font-size: 10px;
       color: rgba(255, 255, 255, 0.45);
       flex-shrink: 0;
     }
@@ -431,7 +432,7 @@
 
   <div class="app-viewport">
     <header class="top-bar">
-      <span id="clock">17:40</span>
+      <span id="clock">14:53</span>
       <div class="status-pill">
         <span class="green-dot"></span> <span id="passenger-count">1</span> રસ્તા પર
       </div>
@@ -450,7 +451,7 @@
       <!-- Playlist Queue Drawer -->
       <div class="playlist-drawer" id="playlist-drawer">
         <div class="drawer-header">
-          <span>PLAYLIST QUEUE (14)</span>
+          <span>PLAYLIST QUEUE (9)</span>
           <i class="fa-solid fa-xmark" style="cursor:pointer;" onclick="togglePlaylistDrawer()"></i>
         </div>
         <div id="playlist-items-wrapper"></div>
@@ -460,20 +461,20 @@
         <p class="shayari-text" id="shayari-box">બુરી નજર વાળા, તારા બાળકો જીવે; મોટા થઈને, તારું જ લોહી પીવે!</p>
       </div>
 
-      <!-- Player Bar & Floating Icon -->
+      <!-- Player Bar -->
       <div class="player-row-wrapper">
         <div class="glass-player">
           <div class="left-track-info">
             <img class="album-art" src="bus1.jpg" id="album-thumb" alt="Album Cover" />
             <div class="track-details">
-              <span class="song-title" id="song-title">Abhi to Mohabbat...</span>
-              <span class="artist-name" id="artist-name">Satrang Music / Raju...</span>
+              <span class="song-title" id="song-title">Prem To Moto...</span>
+              <span class="artist-name" id="artist-name">Jignesh Barot</span>
             </div>
           </div>
 
           <div class="center-progress-col">
-            <input type="range" id="seek-slider" class="seek-slider" value="10" max="100" oninput="seekToPosition(this.value)" />
-            <span class="time-stamp" id="time-stamp">0:34 / 5:18</span>
+            <input type="range" id="seek-slider" class="seek-slider" value="27" max="100" oninput="seekToPosition(this.value)" />
+            <span class="time-stamp" id="time-stamp">0:54 / 2:00</span>
           </div>
 
           <div class="player-controls">
@@ -483,24 +484,31 @@
             <button class="ctrl-btn" onclick="togglePlaylistDrawer()"><i class="fa-solid fa-list-ul"></i></button>
           </div>
         </div>
-
-        <a href="https://open.spotify.com" target="_blank" class="floating-app-btn" title="Open in Spotify">
-          <i class="fa-brands fa-spotify"></i>
-        </a>
       </div>
     </div>
   </div>
+
+  <!-- Floating App Switcher Icon -->
+  <a href="https://music.youtube.com" target="_blank" class="floating-app-btn" title="Open Music App">
+    <i class="fa-brands fa-youtube"></i>
+  </a>
 
   <div id="yt-player-container"><div id="yt-player"></div></div>
 
   <script src="https://www.youtube.com/iframe_api"></script>
 
   <script>
+    // Exact 9 track items from your screenshot
     const playlistData = [
-      { title: "Abhi to Mohabbat Ka (From Hum Ho Gaye Aapke)", artist: "Satrang Music / Raju Mistri", duration: "5:18" },
-      { title: "Ae Mere Humsafar", artist: "Satrang Music / Raju Mistri", duration: "5:51" },
-      { title: "Chaaha Toh Bahut", artist: "Satrang Music / Raju Mistri", duration: "7:47" },
-      { title: "Dil Ki Tanhai Ko", artist: "Satrang Music / Raju Mistri", duration: "6:12" }
+      { title: "Prem To Moto Rog Se", artist: "Jignesh Barot", duration: "2:00" },
+      { title: "Tara Roop Ni Vato", artist: "Pankaj Mistry", duration: "4:42" },
+      { title: "Prem Hato Juno Lagavi Gai Chuno (NonStop Track)", artist: "Kishan Rathva", duration: "34:19" },
+      { title: "Mangalvalni Rate Light Lab Jab Thay", artist: "Rakesh Raval", duration: "29:31" },
+      { title: "Khajuri Taro Zarmariyado", artist: "Jignesh Kaviraj", duration: "3:12" },
+      { title: "Lili Tuver Suki Tuver", artist: "Jignesh Kaviraj and Tejal Thakor", duration: "2:59" },
+      { title: "Phool Gajaro Re Maro", artist: "Jignesh Kaviraj", duration: "2:57" },
+      { title: "Bewafa Tane Dur Thi Salam", artist: "Jignesh Kaviraj", duration: "5:17" },
+      { title: "Yad Kare Se Shad Kare Se", artist: "Jignesh Kaviraj", duration: "4:38" }
     ];
 
     const ua = navigator.userAgent || navigator.vendor || window.opera;
@@ -536,7 +544,7 @@
       player = new YT.Player('yt-player', {
         height: '100',
         width: '100',
-        playerVars: {
+ playerVars: {
           listType: 'playlist',
           list: 'PLK0hZ_GbHXV0',
           autoplay: 1,
@@ -553,7 +561,7 @@
     }
 
     function onPlayerReady() {
-      updateTrackInfo();
+      updateTrackInfo(0);
       setInterval(updateProgress, 1000);
       populatePlaylistDrawer();
       if (player && typeof player.playVideo === 'function') {
@@ -568,7 +576,6 @@
         playIcon.className = 'fa-solid fa-pause';
         currentBgIndex = (currentBgIndex + 1) % images.length;
         updateBackgroundImage();
-        updateTrackInfo();
       } else {
         isPlaying = false;
         playIcon.className = 'fa-solid fa-play';
@@ -614,6 +621,7 @@
         el.className = `playlist-item ${idx === 0 ? 'active-track' : ''}`;
         el.onclick = () => {
           if (player) player.playVideoAt(idx);
+          updateTrackInfo(idx);
           togglePlaylistDrawer();
         };
         el.innerHTML = `
@@ -630,17 +638,10 @@
       });
     }
 
-    function updateTrackInfo() {
-      if (!player || !player.getVideoData) return;
-      const data = player.getVideoData();
-      if (data && data.title) {
-        document.getElementById('song-title').innerText = data.title;
-        document.getElementById('artist-name').innerText = "Satrang Music";
-
-        if (data.video_id) {
-          document.getElementById('album-thumb').src = `https://img.youtube.com/vi/${data.video_id}/hqdefault.jpg`;
-        }
-      }
+    function updateTrackInfo(idx = 0) {
+      const current = playlistData[idx] || playlistData[0];
+      document.getElementById('song-title').innerText = current.title;
+      document.getElementById('artist-name').innerText = current.artist;
     }
 
     function updateProgress() {
