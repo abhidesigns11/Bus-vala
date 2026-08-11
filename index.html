@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>બસ વાળો | Bus Valo</title>
 
-  <!-- Preconnect Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Hind+Vadodara:wght@600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
@@ -29,7 +28,6 @@
       font-family: 'Hind Vadodara', -apple-system, sans-serif;
     }
 
-    /* Instagram In-App Browser Warning Banner */
     #ig-warning-bar {
       display: none;
       position: fixed;
@@ -48,7 +46,6 @@
       font-family: 'Hind Vadodara', sans-serif;
     }
 
-    /* Universal Responsive Background Container */
     #bg-container {
       position: absolute;
       top: 0;
@@ -63,7 +60,6 @@
       will-change: background-image;
     }
 
-    /* UI Viewport Wrapper */
     .app-viewport {
       position: relative;
       width: 100%;
@@ -157,25 +153,27 @@
       position: relative;
     }
 
+    /* Spotify-style Queue Drawer */
     .playlist-drawer {
       width: 100%;
-      max-height: 240px;
-      background: rgba(15, 8, 20, 0.9);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-radius: 24px;
-      padding: 12px;
+      max-height: 280px;
+      background: rgba(20, 10, 15, 0.92);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      border-radius: 20px;
+      padding: 16px;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 8px;
       opacity: 0;
       pointer-events: none;
       transform: translateY(10px);
       transition: all 0.3s ease;
       position: absolute;
       bottom: 105%;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     }
 
     .playlist-drawer.active {
@@ -184,14 +182,33 @@
       transform: translateY(0);
     }
 
+    .drawer-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: rgba(255, 255, 255, 0.6);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+    }
+
     .playlist-item {
       display: flex;
       align-items: center;
-      padding: 8px 12px;
-      border-radius: 12px;
+      justify-content: space-between;
+      padding: 10px 12px;
+      border-radius: 10px;
       cursor: pointer;
       font-size: 13px;
-      gap: 12px;
+      background: rgba(255, 255, 255, 0.03);
+      transition: background 0.2s;
+    }
+
+    .playlist-item:hover, .playlist-item.active-track {
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.2);
     }
 
     .shayari-container {
@@ -232,12 +249,13 @@
       width: 100%;
     }
 
+    /* Square Artwork Style like Spotify */
     .album-art {
-      width: 58px;
-      height: 58px;
-      border-radius: 50%;
+      width: 54px;
+      height: 54px;
+      border-radius: 8px;
       object-fit: cover;
-      border: 1px solid rgba(255, 255, 255, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.2);
       flex-shrink: 0;
     }
 
@@ -327,6 +345,30 @@
       font-size: 16px;
     }
 
+    /* Floating Spotify Icon Button */
+    .spotify-link-btn {
+      position: fixed;
+      bottom: 24px;
+      right: 20px;
+      width: 42px;
+      height: 42px;
+      background: #1DB954;
+      color: #000;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      text-decoration: none;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+      z-index: 100;
+      transition: transform 0.2s ease;
+    }
+
+    .spotify-link-btn:active {
+      transform: scale(0.9);
+    }
+
     #yt-player-container {
       position: absolute;
       width: 1px;
@@ -335,33 +377,13 @@
       pointer-events: none;
     }
 
-    /* DESKTOP OPTIMIZATIONS */
     @media screen and (min-width: 768px) {
-      #bg-container {
-        background-position: center center;
-      }
-
-      .app-viewport {
-        max-width: 1200px;
-        padding: 24px;
-      }
-
-      .horn-btn {
-        left: 32px;
-        top: 50%;
-      }
-
-      .center-top-branding {
-        top: 12%;
-      }
-
-      .main-title {
-        font-size: 5.5rem;
-      }
-
-      .bottom-section {
-        max-width: 460px;
-      }
+      #bg-container { background-position: center center; }
+      .app-viewport { max-width: 1200px; padding: 24px; }
+      .horn-btn { left: 32px; top: 50%; }
+      .center-top-branding { top: 12%; }
+      .main-title { font-size: 5.5rem; }
+      .bottom-section { max-width: 460px; }
     }
   </style>
 </head>
@@ -391,7 +413,13 @@
     </button>
 
     <div class="bottom-section">
-      <div class="playlist-drawer" id="playlist-drawer"></div>
+      <div class="playlist-drawer" id="playlist-drawer">
+        <div class="drawer-header">
+          <span>PLAYLIST QUEUE</span>
+          <i class="fa-solid fa-xmark" style="cursor:pointer;" onclick="togglePlaylistDrawer()"></i>
+        </div>
+        <div id="playlist-items-wrapper"></div>
+      </div>
 
       <div class="shayari-container">
         <p class="shayari-text" id="shayari-box">બુરી નજર વાળા, તારા બાળકો જીવે; મોટા થઈને, તારું જ લોહી પીવે!</p>
@@ -421,6 +449,11 @@
       </div>
     </div>
   </div>
+
+  <!-- Direct Link to Your Spotify Playlist -->
+  <a href="https://open.spotify.com/playlist/2IlD2ylkEKt1goHFBQs4aj" target="_blank" rel="noopener noreferrer" class="spotify-link-btn" title="Open in Spotify">
+    <i class="fa-brands fa-spotify"></i>
+  </a>
 
   <div id="yt-player-container"><div id="yt-player"></div></div>
 
@@ -481,8 +514,6 @@
       updateTrackInfo();
       setInterval(updateProgress, 1000);
       populatePlaylistDrawer();
-      
-      // Auto-play attempt on ready
       if (player && typeof player.playVideo === 'function') {
         player.playVideo();
       }
@@ -493,10 +524,8 @@
       if (event.data === YT.PlayerState.PLAYING) {
         isPlaying = true;
         playIcon.className = 'fa-solid fa-pause';
-        
         currentBgIndex = (currentBgIndex + 1) % images.length;
         updateBackgroundImage();
-
         updateTrackInfo();
       } else {
         isPlaying = false;
@@ -538,21 +567,25 @@
     function populatePlaylistDrawer() {
       if (!player || !player.getPlaylist) return;
       const playlist = player.getPlaylist();
-      const drawer = document.getElementById('playlist-drawer');
+      const wrapper = document.getElementById('playlist-items-wrapper');
       if (!playlist) return;
 
-      drawer.innerHTML = '';
+      wrapper.innerHTML = '';
       playlist.forEach((id, idx) => {
         const item = document.createElement('div');
         item.className = 'playlist-item';
-        item.onclick = () => player.playVideoAt(idx);
+        item.onclick = () => {
+          player.playVideoAt(idx);
+          togglePlaylistDrawer();
+        };
         item.innerHTML = `
-          <span style="font-size:11px; opacity:0.6;">${idx + 1}</span>
-          <div style="flex:1; overflow:hidden;">
+          <div style="display:flex; align-items:center; gap:10px; overflow:hidden;">
+            <span style="font-size:11px; opacity:0.6; min-width:14px;">${idx + 1}</span>
             <div style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Track ${idx + 1}</div>
           </div>
+          <i class="fa-solid fa-play" style="font-size:10px; opacity:0.5;"></i>
         `;
-        drawer.appendChild(item);
+        wrapper.appendChild(item);
       });
     }
 
