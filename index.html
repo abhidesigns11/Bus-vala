@@ -147,6 +147,7 @@
       gap: 12px;
       z-index: 10;
       position: relative;
+      margin-bottom: 35px; /* Creates spacing above bottom edge as requested */
     }
 
     .shayari-container {
@@ -176,7 +177,7 @@
     .glass-player {
       width: 100%;
       background: rgba(22, 18, 18, 0.92);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.12);
       backdrop-filter: blur(24px);
       -webkit-backdrop-filter: blur(24px);
       border-radius: 20px;
@@ -243,7 +244,7 @@
       width: 100%;
       height: 3px;
       border-radius: 3px;
-      background: linear-gradient(to right, #ff5a1f 0%, #ff5a1f 27%, rgba(255, 255, 255, 0.2) 27%, rgba(255, 255, 255, 0.2) 100%);
+      background: linear-gradient(to right, #ff5a1f 0%, #ff5a1f 0%, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.2) 100%);
       outline: none;
       cursor: pointer;
     }
@@ -293,7 +294,7 @@
       font-size: 13px;
     }
 
-    /* Floating Spotify Icon Fixed Position inside screen boundary */
+    /* Floating Spotify Icon Fixed Position */
     .floating-app-btn {
       position: fixed;
       right: 16px;
@@ -460,7 +461,7 @@
         <p class="shayari-text" id="shayari-box">બુરી નજર વાળા, તારા બાળકો જીવે; મોટા થઈને, તારું જ લોહી પીવે!</p>
       </div>
 
-      <!-- Player Bar -->
+      <!-- Elevated Player Bar -->
       <div class="player-row-wrapper">
         <div class="glass-player">
           <div class="left-track-info">
@@ -472,8 +473,8 @@
           </div>
 
           <div class="center-progress-col">
-            <input type="range" id="seek-slider" class="seek-slider" value="27" max="100" oninput="seekToPosition(this.value)" />
-            <span class="time-stamp" id="time-stamp">0:54 / 2:00</span>
+            <input type="range" id="seek-slider" class="seek-slider" value="0" max="100" oninput="seekToPosition(this.value)" />
+            <span class="time-stamp" id="time-stamp">0:00 / 0:00</span>
           </div>
 
           <div class="player-controls">
@@ -487,9 +488,9 @@
     </div>
   </div>
 
-  <!-- Floating App Icon Fixed to Bottom Right -->
-  <a href="https://music.youtube.com" target="_blank" class="floating-app-btn" title="Open YouTube Music">
-    <i class="fa-brands fa-youtube"></i>
+  <!-- Floating Spotify / App Icon -->
+  <a href="https://open.spotify.com" target="_blank" class="floating-app-btn" title="Open Spotify">
+    <i class="fa-brands fa-spotify"></i>
   </a>
 
   <div id="yt-player-container"><div id="yt-player"></div></div>
@@ -498,38 +499,25 @@
 
   <script>
     const playlistData = [
-      { title: "Prem To Moto Rog Se", artist: "Jignesh Barot", duration: "2:00" },
-      { title: "Tara Roop Ni Vato", artist: "Pankaj Mistry", duration: "4:42" },
-      { title: "Prem Hato Juno Lagavi Gai Chuno (NonStop Track)", artist: "Kishan Rathva", duration: "34:19" },
-      { title: "Mangalvalni Rate Light Lab Jab Thay", artist: "Rakesh Raval", duration: "29:31" },
-      { title: "Khajuri Taro Zarmariyado", artist: "Jignesh Kaviraj", duration: "3:12" },
-      { title: "Lili Tuver Suki Tuver", artist: "Jignesh Kaviraj and Tejal Thakor", duration: "2:59" },
-      { title: "Phool Gajaro Re Maro", artist: "Jignesh Kaviraj", duration: "2:57" },
-      { title: "Bewafa Tane Dur Thi Salam", artist: "Jignesh Kaviraj", duration: "5:17" },
-      { title: "Yad Kare Se Shad Kare Se", artist: "Jignesh Kaviraj", duration: "4:38" }
+      { title: "Prem To Moto Rog Se", artist: "Jignesh Barot", duration: "2:00", thumb: "bus1.jpg" },
+      { title: "Tara Roop Ni Vato", artist: "Pankaj Mistry", duration: "4:42", thumb: "bus2.jpg" },
+      { title: "Prem Hato Juno Lagavi Gai Chuno", artist: "Kishan Rathva", duration: "34:19", thumb: "bus1.jpg" },
+      { title: "Mangalvalni Rate Light Lab Jab Thay", artist: "Rakesh Raval", duration: "29:31", thumb: "bus2.jpg" },
+      { title: "Khajuri Taro Zarmariyado", artist: "Jignesh Kaviraj", duration: "3:12", thumb: "bus1.jpg" },
+      { title: "Lili Tuver Suki Tuver", artist: "Jignesh Kaviraj and Tejal Thakor", duration: "2:59", thumb: "bus2.jpg" },
+      { title: "Phool Gajaro Re Maro", artist: "Jignesh Kaviraj", duration: "2:57", thumb: "bus1.jpg" },
+      { title: "Bewafa Tane Dur Thi Salam", artist: "Jignesh Kaviraj", duration: "5:17", thumb: "bus2.jpg" },
+      { title: "Yad Kare Se Shad Kare Se", artist: "Jignesh Kaviraj", duration: "4:38", thumb: "bus1.jpg" }
     ];
 
-    const ua = navigator.userAgent || navigator.vendor || window.opera;
-    const isInstagram = /Instagram/i.test(ua);
-
-    if (isInstagram) {
-      document.addEventListener("DOMContentLoaded", () => {
-        const warningBar = document.getElementById("ig-warning-bar");
-        if (warningBar) warningBar.style.display = "block";
-
-        if (/Android/i.test(ua)) {
-          const cleanUrl = window.location.href.replace(/^https?:\/\//, '');
-          window.location.href = `intent://${cleanUrl}#Intent;scheme=https;package=com.android.chrome;end`;
-        }
-      });
-    }
-
-    const images = ["bus1.jpg", "bus2.jpg"];
-    let currentBgIndex = 0;
-    let currentShayariIndex = 0;
+    let currentTrackIdx = 0;
     let player = null;
     let isPlaying = false;
     let hornAudio = null;
+    let currentBgIndex = 0;
+    let currentShayariIndex = 0;
+
+    const images = ["bus1.jpg", "bus2.jpg"];
 
     function updateBackgroundImage() {
       document.getElementById('bg-container').style.backgroundImage = `url('${images[currentBgIndex]}')`;
@@ -572,12 +560,34 @@
       if (event.data === YT.PlayerState.PLAYING) {
         isPlaying = true;
         playIcon.className = 'fa-solid fa-pause';
+
+        if (typeof player.getPlaylistIndex === 'function') {
+          const loadedIdx = player.getPlaylistIndex();
+          if (loadedIdx !== -1 && loadedIdx !== currentTrackIdx) {
+            updateTrackInfo(loadedIdx);
+          }
+        }
+
         currentBgIndex = (currentBgIndex + 1) % images.length;
         updateBackgroundImage();
       } else {
         isPlaying = false;
         playIcon.className = 'fa-solid fa-play';
       }
+    }
+
+    function updateTrackInfo(idx) {
+      currentTrackIdx = idx;
+      const current = playlistData[idx] || playlistData[0];
+      
+      document.getElementById('song-title').innerText = current.title;
+      document.getElementById('artist-name').innerText = current.artist;
+      document.getElementById('album-thumb').src = current.thumb;
+
+      const items = document.querySelectorAll('.playlist-item');
+      items.forEach((item, i) => {
+        item.classList.toggle('active-track', i === idx);
+      });
     }
 
     function togglePlay() {
@@ -590,8 +600,19 @@
       }
     }
 
-    function nextTrack() { if (player) player.nextVideo(); }
-    function prevTrack() { if (player) player.previousVideo(); }
+    function nextTrack() {
+      if (!player) return;
+      currentTrackIdx = (currentTrackIdx + 1) % playlistData.length;
+      updateTrackInfo(currentTrackIdx);
+      player.nextVideo();
+    }
+
+    function prevTrack() {
+      if (!player) return;
+      currentTrackIdx = (currentTrackIdx - 1 + playlistData.length) % playlistData.length;
+      updateTrackInfo(currentTrackIdx);
+      player.previousVideo();
+    }
 
     function seekToPosition(percent) {
       if (!player || !player.getDuration) return;
@@ -616,7 +637,7 @@
 
       playlistData.forEach((item, idx) => {
         const el = document.createElement('div');
-        el.className = `playlist-item ${idx === 0 ? 'active-track' : ''}`;
+        el.className = `playlist-item ${idx === currentTrackIdx ? 'active-track' : ''}`;
         el.onclick = () => {
           if (player) player.playVideoAt(idx);
           updateTrackInfo(idx);
@@ -634,12 +655,6 @@
         `;
         wrapper.appendChild(el);
       });
-    }
-
-    function updateTrackInfo(idx = 0) {
-      const current = playlistData[idx] || playlistData[0];
-      document.getElementById('song-title').innerText = current.title;
-      document.getElementById('artist-name').innerText = current.artist;
     }
 
     function updateProgress() {
