@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>બસ વાળો | Bus Valo</title>
 
-  <!-- Preconnect Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Hind+Vadodara:wght@600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
@@ -29,7 +28,6 @@
       font-family: 'Hind Vadodara', -apple-system, sans-serif;
     }
 
-    /* Instagram In-App Browser Warning Banner */
     #ig-warning-bar {
       display: none;
       position: fixed;
@@ -45,10 +43,8 @@
       z-index: 10000;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
       line-height: 1.4;
-      font-family: 'Hind Vadodara', sans-serif;
     }
 
-    /* Universal Responsive Background Container */
     #bg-container {
       position: absolute;
       top: 0;
@@ -60,10 +56,8 @@
       background-repeat: no-repeat;
       transition: background-image 0.6s ease-in-out;
       z-index: 1;
-      will-change: background-image;
     }
 
-    /* UI Viewport Wrapper */
     .app-viewport {
       position: relative;
       width: 100%;
@@ -118,7 +112,6 @@
     }
 
     .main-title {
-      font-family: 'Hind Vadodara', sans-serif;
       font-size: clamp(3.2rem, 11vw, 5.5rem);
       font-weight: 700;
       color: #ffffff;
@@ -143,7 +136,6 @@
       gap: 8px;
       font-size: 13px;
       z-index: 10;
-      font-family: 'Hind Vadodara', sans-serif;
     }
 
     .bottom-section {
@@ -175,33 +167,39 @@
 
     .shayari-text.fade-out { opacity: 0; }
 
-    /* Horizontal Footer Row */
+    /* Player Container */
     .player-row-wrapper {
       width: 100%;
-      display: flex;
-      align-items: center;
-      gap: 10px;
+      position: relative;
     }
 
     .glass-player {
-      flex: 1;
-      background: rgba(18, 18, 20, 0.85);
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      width: 100%;
+      background: rgba(22, 18, 18, 0.92);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       backdrop-filter: blur(24px);
       -webkit-backdrop-filter: blur(24px);
       border-radius: 20px;
-      padding: 8px 12px;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+    }
+
+    .left-track-info {
       display: flex;
       align-items: center;
       gap: 10px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+      width: 32%;
       min-width: 0;
     }
 
     .album-art {
-      width: 42px;
-      height: 42px;
-      border-radius: 6px;
+      width: 44px;
+      height: 44px;
+      border-radius: 8px;
       object-fit: cover;
       flex-shrink: 0;
     }
@@ -209,14 +207,13 @@
     .track-details {
       display: flex;
       flex-direction: column;
-      gap: 2px;
-      flex: 1;
+      justify-content: center;
       min-width: 0;
     }
 
     .song-title {
-      font-size: 12px;
-      font-weight: 600;
+      font-size: 13px;
+      font-weight: 700;
       color: #ffffff;
       white-space: nowrap;
       overflow: hidden;
@@ -224,19 +221,20 @@
     }
 
     .artist-name {
-      font-size: 10px;
-      color: rgba(255, 255, 255, 0.6);
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.5);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
 
-    .progress-box {
-      width: 100%;
+    /* Center Progress Column */
+    .center-progress-col {
       display: flex;
+      flex-direction: column;
       align-items: center;
-      gap: 8px;
-      margin-top: 2px;
+      width: 32%;
+      gap: 4px;
     }
 
     .seek-slider {
@@ -244,40 +242,41 @@
       appearance: none;
       width: 100%;
       height: 3px;
-      border-radius: 2px;
-      background: rgba(255, 255, 255, 0.25);
+      border-radius: 3px;
+      background: rgba(255, 255, 255, 0.2);
       outline: none;
       cursor: pointer;
     }
 
-    /* Fixed white block glitch: width set back to 10px */
     .seek-slider::-webkit-slider-thumb {
       -webkit-appearance: none;
       width: 10px;
       height: 10px;
       border-radius: 50%;
       background: #ffffff;
+      box-shadow: 0 0 4px rgba(0,0,0,0.5);
     }
 
     .time-stamp {
-      font-size: 9px;
-      color: rgba(255, 255, 255, 0.55);
-      white-space: nowrap;
+      font-size: 10px;
+      color: rgba(255, 255, 255, 0.6);
       font-variant-numeric: tabular-nums;
+      letter-spacing: 0.5px;
     }
 
+    /* Right Player Controls */
     .player-controls {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
       flex-shrink: 0;
     }
 
     .ctrl-btn {
       background: transparent;
       border: none;
-      color: rgba(255, 255, 255, 0.85);
-      font-size: 12px;
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 14px;
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -288,42 +287,42 @@
     .ctrl-btn.play-circle {
       background: #ffffff;
       color: #000000;
-      width: 32px;
-      height: 32px;
+      width: 38px;
+      height: 38px;
       border-radius: 50%;
-      font-size: 12px;
+      font-size: 14px;
     }
 
-    .ytmusic-side-btn {
-      width: 44px;
-      height: 44px;
-      background: #FF0000;
-      color: #ffffff;
+    /* Floating Spotify Icon at Bottom Right */
+    .floating-app-btn {
+      position: absolute;
+      right: 0;
+      bottom: -52px;
+      width: 38px;
+      height: 38px;
+      background: #121212;
+      border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
+      color: #1DB954;
       font-size: 20px;
       text-decoration: none;
-      box-shadow: 0 4px 15px rgba(255, 0, 0, 0.4);
-      flex-shrink: 0;
-      transition: transform 0.2s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+      z-index: 12;
     }
 
-    .ytmusic-side-btn:active {
-      transform: scale(0.92);
-    }
-
-    /* Playlist Queue Drawer Modal */
+    /* Playlist Drawer Matching Reference Screenshot */
     .playlist-drawer {
       width: 100%;
-      max-height: 240px;
-      background: rgba(18, 12, 15, 0.95);
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      max-height: 280px;
+      background: rgba(26, 18, 18, 0.96);
+      border: 1px solid rgba(255, 255, 255, 0.12);
       backdrop-filter: blur(25px);
       -webkit-backdrop-filter: blur(25px);
       border-radius: 20px;
-      padding: 14px;
+      padding: 16px;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
@@ -333,8 +332,8 @@
       transform: translateY(10px);
       transition: all 0.3s ease;
       position: absolute;
-      bottom: 105%;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+      bottom: 110%;
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.8);
     }
 
     .playlist-drawer.active {
@@ -349,24 +348,68 @@
       align-items: center;
       font-size: 11px;
       font-weight: 700;
-      letter-spacing: 0.5px;
+      letter-spacing: 0.8px;
       color: rgba(255, 255, 255, 0.5);
-      margin-bottom: 4px;
+      margin-bottom: 6px;
     }
 
     .playlist-item {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 8px 10px;
-      border-radius: 10px;
+      padding: 10px 12px;
+      border-radius: 12px;
       cursor: pointer;
-      font-size: 12px;
-      background: rgba(255, 255, 255, 0.03);
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid transparent;
     }
 
-    .playlist-item:hover {
-      background: rgba(255, 255, 255, 0.1);
+    .playlist-item.active-track {
+      background: rgba(255, 90, 31, 0.12);
+      border: 1px solid rgba(255, 90, 31, 0.5);
+    }
+
+    .item-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .track-num {
+      font-size: 13px;
+      font-weight: 700;
+      color: #ff5a1f;
+      width: 14px;
+    }
+
+    .item-details {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .item-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #ffffff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .item-artist {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.45);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .item-duration {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.45);
+      flex-shrink: 0;
     }
 
     #yt-player-container {
@@ -375,15 +418,6 @@
       height: 1px;
       opacity: 0.01;
       pointer-events: none;
-    }
-
-    @media screen and (min-width: 768px) {
-      #bg-container { background-position: center center; }
-      .app-viewport { max-width: 1200px; padding: 24px; }
-      .horn-btn { left: 32px; top: 50%; }
-      .center-top-branding { top: 12%; }
-      .main-title { font-size: 5.5rem; }
-      .bottom-section { max-width: 480px; }
     }
   </style>
 </head>
@@ -416,7 +450,7 @@
       <!-- Playlist Queue Drawer -->
       <div class="playlist-drawer" id="playlist-drawer">
         <div class="drawer-header">
-          <span id="playlist-count-header">PLAYLIST QUEUE</span>
+          <span>PLAYLIST QUEUE (14)</span>
           <i class="fa-solid fa-xmark" style="cursor:pointer;" onclick="togglePlaylistDrawer()"></i>
         </div>
         <div id="playlist-items-wrapper"></div>
@@ -426,19 +460,20 @@
         <p class="shayari-text" id="shayari-box">બુરી નજર વાળા, તારા બાળકો જીવે; મોટા થઈને, તારું જ લોહી પીવે!</p>
       </div>
 
-      <!-- Player Bar & YouTube Music Button -->
+      <!-- Player Bar & Floating Icon -->
       <div class="player-row-wrapper">
         <div class="glass-player">
-          <img class="album-art" src="bus1.jpg" id="album-thumb" alt="Album Cover" />
-          
-          <div class="track-details">
-            <span class="song-title" id="song-title">લોડ થઈ રહ્યું છે...</span>
-            <span class="artist-name" id="artist-name">YouTube Music</span>
-            
-            <div class="progress-box">
-              <input type="range" id="seek-slider" class="seek-slider" value="0" max="100" oninput="seekToPosition(this.value)" />
-              <span class="time-stamp" id="time-stamp">0:00 / 0:00</span>
+          <div class="left-track-info">
+            <img class="album-art" src="bus1.jpg" id="album-thumb" alt="Album Cover" />
+            <div class="track-details">
+              <span class="song-title" id="song-title">Abhi to Mohabbat...</span>
+              <span class="artist-name" id="artist-name">Satrang Music / Raju...</span>
             </div>
+          </div>
+
+          <div class="center-progress-col">
+            <input type="range" id="seek-slider" class="seek-slider" value="10" max="100" oninput="seekToPosition(this.value)" />
+            <span class="time-stamp" id="time-stamp">0:34 / 5:18</span>
           </div>
 
           <div class="player-controls">
@@ -449,8 +484,8 @@
           </div>
         </div>
 
-        <a href="https://music.youtube.com/playlist?list=PLK0hZ_GbHXV0" target="_blank" rel="noopener noreferrer" class="ytmusic-side-btn" title="Open in YouTube Music">
-          <i class="fa-brands fa-youtube"></i>
+        <a href="https://open.spotify.com" target="_blank" class="floating-app-btn" title="Open in Spotify">
+          <i class="fa-brands fa-spotify"></i>
         </a>
       </div>
     </div>
@@ -461,14 +496,11 @@
   <script src="https://www.youtube.com/iframe_api"></script>
 
   <script>
-    // Song titles list to display in playlist queue drawer
-    const trackListNames = [
-      "Prem To Moto Rog Se",
-      "Tari Aakho Nu Afeen",
-      "Gujarati Folk Beats",
-      "Nadi Dosh Theme",
-      "Char Char Bangdi Valo",
-      "Bus Valo Track 6"
+    const playlistData = [
+      { title: "Abhi to Mohabbat Ka (From Hum Ho Gaye Aapke)", artist: "Satrang Music / Raju Mistri", duration: "5:18" },
+      { title: "Ae Mere Humsafar", artist: "Satrang Music / Raju Mistri", duration: "5:51" },
+      { title: "Chaaha Toh Bahut", artist: "Satrang Music / Raju Mistri", duration: "7:47" },
+      { title: "Dil Ki Tanhai Ko", artist: "Satrang Music / Raju Mistri", duration: "6:12" }
     ];
 
     const ua = navigator.userAgent || navigator.vendor || window.opera;
@@ -487,7 +519,6 @@
     }
 
     const images = ["bus1.jpg", "bus2.jpg"];
-
     let currentBgIndex = 0;
     let currentShayariIndex = 0;
     let player = null;
@@ -561,6 +592,12 @@
       if (!player || !player.getDuration) return;
       const duration = player.getDuration();
       player.seekTo((percent / 100) * duration, true);
+      updateSliderGradient(percent);
+    }
+
+    function updateSliderGradient(percent) {
+      const slider = document.getElementById('seek-slider');
+      slider.style.background = `linear-gradient(to right, #ff5a1f 0%, #ff5a1f ${percent}%, rgba(255, 255, 255, 0.2) ${percent}%, rgba(255, 255, 255, 0.2) 100%)`;
     }
 
     function togglePlaylistDrawer() {
@@ -569,32 +606,28 @@
     }
 
     function populatePlaylistDrawer() {
-      if (!player || !player.getPlaylist) return;
-      const playlist = player.getPlaylist() || [];
       const wrapper = document.getElementById('playlist-items-wrapper');
-      
-      document.getElementById('playlist-count-header').innerText = `PLAYLIST QUEUE (${playlist.length || trackListNames.length})`;
-
       wrapper.innerHTML = '';
-      const totalCount = playlist.length || trackListNames.length;
 
-      for (let idx = 0; idx < totalCount; idx++) {
-        const titleText = trackListNames[idx] || `Track ${idx + 1}`;
-        const item = document.createElement('div');
-        item.className = 'playlist-item';
-        item.onclick = () => {
-          player.playVideoAt(idx);
+      playlistData.forEach((item, idx) => {
+        const el = document.createElement('div');
+        el.className = `playlist-item ${idx === 0 ? 'active-track' : ''}`;
+        el.onclick = () => {
+          if (player) player.playVideoAt(idx);
           togglePlaylistDrawer();
         };
-        item.innerHTML = `
-          <div style="display:flex; align-items:center; gap:10px; overflow:hidden;">
-            <span style="font-size:11px; color:#ff6b35; font-weight:700;">${idx + 1}</span>
-            <div style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${titleText}</div>
+        el.innerHTML = `
+          <div class="item-left">
+            <span class="track-num">${idx + 1}</span>
+            <div class="item-details">
+              <span class="item-title">${item.title}</span>
+              <span class="item-artist">${item.artist}</span>
+            </div>
           </div>
-          <i class="fa-solid fa-play" style="font-size:10px; opacity:0.5;"></i>
+          <span class="item-duration">${item.duration}</span>
         `;
-        wrapper.appendChild(item);
-      }
+        wrapper.appendChild(el);
+      });
     }
 
     function updateTrackInfo() {
@@ -602,7 +635,7 @@
       const data = player.getVideoData();
       if (data && data.title) {
         document.getElementById('song-title').innerText = data.title;
-        document.getElementById('artist-name').innerText = "YouTube Music";
+        document.getElementById('artist-name').innerText = "Satrang Music";
 
         if (data.video_id) {
           document.getElementById('album-thumb').src = `https://img.youtube.com/vi/${data.video_id}/hqdefault.jpg`;
@@ -614,8 +647,10 @@
       if (!player || !player.getCurrentTime || !isPlaying) return;
       const currentTime = player.getCurrentTime() || 0;
       const duration = player.getDuration() || 1;
+      const pct = (currentTime / duration) * 100;
       
-      document.getElementById('seek-slider').value = (currentTime / duration) * 100;
+      document.getElementById('seek-slider').value = pct;
+      updateSliderGradient(pct);
 
       const formatTime = (sec) => {
         const m = Math.floor(sec / 60);
