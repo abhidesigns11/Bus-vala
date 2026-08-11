@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>બસ વાળો | Bus Valo</title>
 
-  <!-- Preconnect Fonts for Rapid Loading -->
+  <!-- Preconnect Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Hind+Vadodara:wght@600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
@@ -48,7 +48,7 @@
       font-family: 'Hind Vadodara', sans-serif;
     }
 
-    /* Start Screen Overlay to Unlock Audio Permissions */
+    /* Start Overlay */
     #start-overlay {
       position: fixed;
       top: 0;
@@ -80,6 +80,23 @@
       box-shadow: 0 4px 20px rgba(255, 255, 255, 0.4);
     }
 
+    /* Universal Responsive Background Container */
+    #bg-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      /* Mobile default: Anchor to bottom center so the bus remains fully visible */
+      background-position: center bottom;
+      background-repeat: no-repeat;
+      transition: background-image 0.6s ease-in-out;
+      z-index: 1;
+      will-change: background-image;
+    }
+
+    /* UI Viewport Wrapper */
     .app-viewport {
       position: relative;
       width: 100%;
@@ -89,24 +106,12 @@
       justify-content: space-between;
       align-items: center;
       padding: 16px 16px 24px 16px;
-    }
-
-    #bg-container {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-size: cover;
-      background-position: center bottom;
-      background-repeat: no-repeat;
-      transition: background-image 0.6s ease-in-out;
-      z-index: 1;
-      will-change: background-image;
+      margin: 0 auto;
     }
 
     .top-bar {
       width: 100%;
+      max-width: 480px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -136,7 +141,7 @@
 
     .center-top-branding {
       position: absolute;
-      top: 24%;
+      top: 18%;
       left: 50%;
       transform: translateX(-50%);
       text-align: center;
@@ -147,16 +152,16 @@
 
     .main-title {
       font-family: 'Hind Vadodara', sans-serif;
-      font-size: clamp(3.2rem, 11vw, 5rem);
+      font-size: clamp(3.2rem, 11vw, 5.5rem);
       font-weight: 700;
       color: #ffffff;
-      text-shadow: 0px 4px 20px rgba(0, 0, 0, 0.85);
+      text-shadow: 0px 4px 25px rgba(0, 0, 0, 0.85);
     }
 
     .horn-btn {
       position: absolute;
       left: 16px;
-      top: 54%;
+      top: 50%;
       transform: translateY(-50%);
       background: rgba(255, 255, 255, 0.18);
       border: 1px solid rgba(255, 255, 255, 0.25);
@@ -176,7 +181,7 @@
 
     .bottom-section {
       width: 100%;
-      max-width: 420px;
+      max-width: 440px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -229,7 +234,7 @@
     }
 
     .shayari-text {
-      font-size: clamp(0.9rem, 3.5vw, 1.05rem);
+      font-size: clamp(0.9rem, 3.5vw, 1.1rem);
       font-weight: 600;
       line-height: 1.35;
       color: #ffffff;
@@ -362,16 +367,44 @@
       opacity: 0.01;
       pointer-events: none;
     }
+
+    /* DESKTOP OPTIMIZATIONS */
+    @media screen and (min-width: 768px) {
+      #bg-container {
+        /* Desktop: Centers horizon wide view */
+        background-position: center center;
+      }
+
+      .app-viewport {
+        max-width: 1200px;
+        padding: 24px;
+      }
+
+      .horn-btn {
+        left: 32px;
+        top: 50%;
+      }
+
+      .center-top-branding {
+        top: 12%;
+      }
+
+      .main-title {
+        font-size: 5.5rem;
+      }
+
+      .bottom-section {
+        max-width: 460px;
+      }
+    }
   </style>
 </head>
 <body>
 
-  <!-- Instagram Warning Banner -->
   <div id="ig-warning-bar">
-    ⚠️ ઇન્સ્ટાગ્રામ મ્યુઝિક સબ્ポート નથી કરતું. ઉપર <b>⋮ (ત્રણ ટપકાં)</b> પર ટચ કરી <b>"Open in Chrome / Browser"</b> પસંદ કરો.
+    ⚠️ ઇન્સ્ટાગ્રામ મ્યુઝિક સપોર્ટ નથી કરતું. ઉપર <b>⋮ (ત્રણ ટપકાં)</b> પર ટચ કરી <b>"Open in Chrome / Browser"</b> પસંદ કરો.
   </div>
 
-  <!-- Start Overlay -->
   <div id="start-overlay" onclick="startApp(event)">
     <button class="start-btn">શરૂ કરો / Tap to Play</button>
   </div>
@@ -432,7 +465,6 @@
   <script src="https://www.youtube.com/iframe_api"></script>
 
   <script>
-    // 1. Detect Instagram In-App Browser & Display Warning
     const ua = navigator.userAgent || navigator.vendor || window.opera;
     const isInstagram = /Instagram/i.test(ua);
 
@@ -441,7 +473,6 @@
         const warningBar = document.getElementById("ig-warning-bar");
         if (warningBar) warningBar.style.display = "block";
 
-        // Try triggering Android Chrome Intent automatically
         if (/Android/i.test(ua)) {
           const cleanUrl = window.location.href.replace(/^https?:\/\//, '');
           window.location.href = `intent://${cleanUrl}#Intent;scheme=https;package=com.android.chrome;end`;
@@ -449,13 +480,8 @@
       });
     }
 
-    const bgImages = ["bus1.jpg", "bus2.jpg"];
-    const shayaris = [
-      "બુરી નજર વાળા, તારા બાળકો જીવે; મોટા થઈને, તારું જ લોહી પીવે!",
-      "લીમડાનું ઝાડ ચંદનથી ઓછું નથી, અમારું ગુજરાત લંડનથી ઓછું નથી.",
-      "સફર સુંદર છે મંઝિલ કરતા પણ... બારી વાળી સીટ મુબારક!",
-      "હસ મા પતલી પ્રેમ થઈ જશે, પ્રેમ થયો તો પછી શું થશે?"
-    ];
+    // Only 2 background images used everywhere
+    const images = ["bus1.jpg", "bus2.jpg"];
 
     let currentBgIndex = 0;
     let currentShayariIndex = 0;
@@ -463,8 +489,14 @@
     let isPlaying = false;
     let hornAudio = null;
 
-    bgImages.forEach(src => { const img = new Image(); img.src = src; });
-    document.getElementById('bg-container').style.backgroundImage = `url('${bgImages[0]}')`;
+    function updateBackgroundImage() {
+      document.getElementById('bg-container').style.backgroundImage = `url('${images[currentBgIndex]}')`;
+    }
+
+    // Preload both images
+    images.forEach(src => { const img = new Image(); img.src = src; });
+    
+    updateBackgroundImage();
 
     function startApp(e) {
       if (e) e.stopPropagation();
@@ -509,6 +541,11 @@
       if (event.data === YT.PlayerState.PLAYING) {
         isPlaying = true;
         playIcon.className = 'fa-solid fa-pause';
+        
+        // Rotate background image on track change
+        currentBgIndex = (currentBgIndex + 1) % images.length;
+        updateBackgroundImage();
+
         updateTrackInfo();
       } else {
         isPlaying = false;
@@ -602,6 +639,13 @@
       hornAudio.currentTime = 0;
       hornAudio.play().catch(err => console.warn(err));
     }
+
+    const shayaris = [
+      "બુરી નજર વાળા, તારા બાળકો જીવે; મોટા થઈને, તારું જ લોહી પીવે!",
+      "લીમડાનું ઝાડ ચંદનથી ઓછું નથી, અમારું ગુજરાત લંડનથી ઓછું નથી.",
+      "સફર સુંદર છે મંઝિલ કરતા પણ... બારી વાળી સીટ મુબારક!",
+      "હસ મા પતલી પ્રેમ થઈ જશે, પ્રેમ થયો તો પછી શું થશે?"
+    ];
 
     setInterval(() => {
       const shayariBox = document.getElementById('shayari-box');
