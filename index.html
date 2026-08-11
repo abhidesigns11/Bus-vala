@@ -5,9 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>બસ વાળો | Bus Valo</title>
 
+  <!-- Preconnect Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Hind+Vadodara:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Vadodara:wght@600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
   <style>
@@ -23,11 +24,31 @@
       height: 100vh;
       height: 100dvh;
       overflow: hidden;
-      background-color: #000;
+      background-color: #05020a;
       color: #fff;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-family: 'Hind Vadodara', -apple-system, sans-serif;
     }
 
+    /* Instagram In-App Browser Warning Banner */
+    #ig-warning-bar {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: #ff3838;
+      color: #ffffff;
+      text-align: center;
+      padding: 10px 14px;
+      font-size: 13px;
+      font-weight: 700;
+      z-index: 10000;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+      line-height: 1.4;
+      font-family: 'Hind Vadodara', sans-serif;
+    }
+
+    /* Universal Responsive Background Container */
     #bg-container {
       position: absolute;
       top: 0;
@@ -37,30 +58,131 @@
       background-size: cover;
       background-position: center bottom;
       background-repeat: no-repeat;
+      transition: background-image 0.6s ease-in-out;
       z-index: 1;
+      will-change: background-image;
     }
 
+    /* UI Viewport Wrapper */
     .app-viewport {
       position: relative;
       width: 100%;
       height: 100%;
       display: flex;
       flex-direction: column;
-      justify-content: flex-end;
-      padding: 16px;
-      z-index: 2;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 16px 24px 16px;
+      margin: 0 auto;
     }
 
-    /* Floating Player Bar (Single Row) */
+    .top-bar {
+      width: 100%;
+      max-width: 480px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      z-index: 10;
+    }
+
+    .status-pill {
+      background: rgba(255, 255, 255, 0.18);
+      padding: 5px 14px;
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .green-dot {
+      width: 7px;
+      height: 7px;
+      background-color: #2ed573;
+      border-radius: 50%;
+      box-shadow: 0 0 6px #2ed573;
+    }
+
+    .center-top-branding {
+      position: absolute;
+      top: 18%;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      z-index: 10;
+      width: 100%;
+      pointer-events: none;
+    }
+
+    .main-title {
+      font-family: 'Hind Vadodara', sans-serif;
+      font-size: clamp(3.2rem, 11vw, 5.5rem);
+      font-weight: 700;
+      color: #ffffff;
+      text-shadow: 0px 4px 25px rgba(0, 0, 0, 0.85);
+    }
+
+    .horn-btn {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255, 255, 255, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 25px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      z-index: 10;
+      font-family: 'Hind Vadodara', sans-serif;
+    }
+
+    .bottom-section {
+      width: 100%;
+      max-width: 440px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      z-index: 10;
+      position: relative;
+    }
+
+    .shayari-container {
+      width: 100%;
+      text-align: center;
+      padding: 0 8px;
+    }
+
+    .shayari-text {
+      font-size: clamp(0.9rem, 3.5vw, 1.1rem);
+      font-weight: 600;
+      line-height: 1.35;
+      color: #ffffff;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
+      opacity: 1;
+      transition: opacity 0.6s ease-in-out;
+    }
+
+    .shayari-text.fade-out { opacity: 0; }
+
+    /* Compact Player Bar to match Reference Screenshots */
     .glass-player {
       width: 100%;
-      max-width: 420px;
-      margin: 0 auto;
-      background: rgba(18, 18, 20, 0.75);
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(18, 18, 20, 0.82);
+      border: 1px solid rgba(255, 255, 255, 0.15);
       backdrop-filter: blur(24px);
       -webkit-backdrop-filter: blur(24px);
-      border-radius: 20px;
+      border-radius: 18px;
       padding: 8px 12px;
       display: flex;
       align-items: center;
@@ -68,25 +190,25 @@
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
     }
 
+    /* Square Album Artwork */
     .album-art {
-      width: 38px;
-      height: 38px;
+      width: 42px;
+      height: 42px;
       border-radius: 6px;
       object-fit: cover;
       flex-shrink: 0;
     }
 
-    .track-info-and-slider {
+    .track-details {
       display: flex;
       flex-direction: column;
-      justify-content: center;
       gap: 2px;
       flex: 1;
       min-width: 0;
     }
 
     .song-title {
-      font-size: 11px;
+      font-size: 12px;
       font-weight: 600;
       color: #ffffff;
       white-space: nowrap;
@@ -96,18 +218,18 @@
 
     .artist-name {
       font-size: 10px;
-      color: rgba(255, 255, 255, 0.55);
+      color: rgba(255, 255, 255, 0.6);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
 
-    .slider-row {
+    .progress-box {
+      width: 100%;
       display: flex;
       align-items: center;
       gap: 8px;
-      width: 100%;
-      margin-top: 1px;
+      margin-top: 2px;
     }
 
     .seek-slider {
@@ -116,24 +238,24 @@
       width: 100%;
       height: 3px;
       border-radius: 2px;
-      background: rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.25);
       outline: none;
+      cursor: pointer;
     }
 
     .seek-slider::-webkit-slider-thumb {
       -webkit-appearance: none;
-      width: 8px;
-      height: 8px;
+      width: 10px;
+      height: 10px;
       border-radius: 50%;
       background: #ffffff;
-      cursor: pointer;
     }
 
     .time-stamp {
       font-size: 9px;
-      color: rgba(255, 255, 255, 0.5);
-      font-variant-numeric: tabular-nums;
+      color: rgba(255, 255, 255, 0.55);
       white-space: nowrap;
+      font-variant-numeric: tabular-nums;
     }
 
     .player-controls {
@@ -144,10 +266,10 @@
     }
 
     .ctrl-btn {
-      background: none;
+      background: transparent;
       border: none;
       color: rgba(255, 255, 255, 0.85);
-      font-size: 11px;
+      font-size: 12px;
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -158,54 +280,63 @@
     .ctrl-btn.play-circle {
       background: #ffffff;
       color: #000000;
-      width: 32px;
-      height: 32px;
+      width: 34px;
+      height: 34px;
       border-radius: 50%;
-      font-size: 12px;
+      font-size: 13px;
     }
 
-    /* Spotify Bottom Floating Icon */
-    .spotify-floating-btn {
+    /* Floating Spotify Icon in Bottom Right */
+    .spotify-link-btn {
       position: fixed;
-      bottom: 16px;
-      right: 16px;
-      width: 36px;
-      height: 36px;
+      bottom: 20px;
+      right: 18px;
+      width: 38px;
+      height: 38px;
       background: #1DB954;
-      color: #000;
+      color: #000000;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 20px;
+      font-size: 22px;
       text-decoration: none;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-      z-index: 10;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+      z-index: 100;
+      transition: transform 0.2s ease;
     }
 
-    /* Queue Modal (Matching 2nd Screenshot) */
+    .spotify-link-btn:active {
+      transform: scale(0.92);
+    }
+
+    /* Playlist Queue Drawer Modal */
     .playlist-drawer {
-      position: absolute;
-      bottom: 70px;
-      left: 16px;
-      right: 16px;
-      max-width: 420px;
-      margin: 0 auto;
-      background: rgba(18, 14, 16, 0.94);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(30px);
-      -webkit-backdrop-filter: blur(30px);
+      width: 100%;
+      max-height: 250px;
+      background: rgba(18, 12, 15, 0.94);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
       border-radius: 20px;
       padding: 14px;
-      display: none;
+      overflow-y: auto;
+      display: flex;
       flex-direction: column;
-      gap: 10px;
-      z-index: 20;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+      gap: 8px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(10px);
+      transition: all 0.3s ease;
+      position: absolute;
+      bottom: 105%;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
     }
 
     .playlist-drawer.active {
-      display: flex;
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
     }
 
     .drawer-header {
@@ -214,16 +345,9 @@
       align-items: center;
       font-size: 11px;
       font-weight: 700;
-      color: rgba(255, 255, 255, 0.5);
       letter-spacing: 0.5px;
-    }
-
-    .playlist-items-scroll {
-      max-height: 220px;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
+      color: rgba(255, 255, 255, 0.5);
+      margin-bottom: 4px;
     }
 
     .playlist-item {
@@ -232,51 +356,14 @@
       justify-content: space-between;
       padding: 8px 10px;
       border-radius: 10px;
-      font-size: 12px;
       cursor: pointer;
+      font-size: 12px;
+      background: rgba(255, 255, 255, 0.03);
     }
 
-    .playlist-item.active-item {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(230, 81, 0, 0.5);
-    }
-
-    .item-left {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      overflow: hidden;
-    }
-
-    .item-num {
-      font-weight: 700;
-      font-size: 11px;
-      color: #ff6b35;
-      min-width: 12px;
-    }
-
-    .item-meta {
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
-
-    .item-title {
-      color: #fff;
-      font-weight: 600;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .item-sub {
-      font-size: 10px;
-      color: rgba(255, 255, 255, 0.5);
-    }
-
-    .item-duration {
-      font-size: 10px;
-      color: rgba(255, 255, 255, 0.5);
+    .playlist-item:hover, .playlist-item.active-item {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 107, 53, 0.4);
     }
 
     #yt-player-container {
@@ -286,57 +373,139 @@
       opacity: 0.01;
       pointer-events: none;
     }
+
+    /* DESKTOP OPTIMIZATIONS */
+    @media screen and (min-width: 768px) {
+      #bg-container {
+        background-position: center center;
+      }
+
+      .app-viewport {
+        max-width: 1200px;
+        padding: 24px;
+      }
+
+      .horn-btn {
+        left: 32px;
+        top: 50%;
+      }
+
+      .center-top-branding {
+        top: 12%;
+      }
+
+      .main-title {
+        font-size: 5.5rem;
+      }
+
+      .bottom-section {
+        max-width: 460px;
+      }
+    }
   </style>
 </head>
 <body>
 
+  <div id="ig-warning-bar">
+    ⚠️ ઇન્સ્ટાગ્રામ મ્યુઝિક સપોર્ટ નથી કરતું. ઉપર <b>⋮ (ત્રણ ટપકાં)</b> પર ટચ કરી <b>"Open in Chrome / Browser"</b> પસંદ કરો.
+  </div>
+
   <div id="bg-container"></div>
 
   <div class="app-viewport">
-    
-    <!-- Queue Drawer Overlay -->
-    <div class="playlist-drawer" id="playlist-drawer">
-      <div class="drawer-header">
-        <span>PLAYLIST QUEUE (14)</span>
-        <i class="fa-solid fa-xmark" style="cursor:pointer;" onclick="togglePlaylistDrawer()"></i>
+    <header class="top-bar">
+      <span id="clock">17:40</span>
+      <div class="status-pill">
+        <span class="green-dot"></span> <span id="passenger-count">1</span> રસ્તા પર
       </div>
-      <div class="playlist-items-scroll" id="playlist-items-wrapper"></div>
-    </div>
+    </header>
 
-    <!-- Minimal Bottom Player Bar -->
-    <div class="glass-player">
-      <img class="album-art" src="bus1.jpg" id="album-thumb" alt="Cover" />
-      
-      <div class="track-info-and-slider">
-        <span class="song-title" id="song-title">Abhi to Mohabbat Ka</span>
-        <span class="artist-name" id="artist-name">Satrang Music / Raju MISTRI</span>
-        <div class="slider-row">
-          <input type="range" id="seek-slider" class="seek-slider" value="0" max="100" oninput="seekToPosition(this.value)" />
-          <span class="time-stamp" id="time-stamp">0:34 / 5:18</span>
+    <main class="center-top-branding">
+      <h1 class="main-title">બસ વાળો</h1>
+    </main>
+
+    <button class="horn-btn" onclick="playHorn()">
+      <i class="fa-solid fa-volume-high"></i>
+      <span>હોર્ન ઓકે પ્લીઝ</span>
+    </button>
+
+    <div class="bottom-section">
+      <!-- Playlist Queue Drawer -->
+      <div class="playlist-drawer" id="playlist-drawer">
+        <div class="drawer-header">
+          <span>PLAYLIST QUEUE (14)</span>
+          <i class="fa-solid fa-xmark" style="cursor:pointer;" onclick="togglePlaylistDrawer()"></i>
+        </div>
+        <div id="playlist-items-wrapper"></div>
+      </div>
+
+      <div class="shayari-container">
+        <p class="shayari-text" id="shayari-box">બુરી નજર વાળા, તારા બાળકો જીવે; મોટા થઈને, તારું જ લોહી પીવે!</p>
+      </div>
+
+      <!-- Player Bar aligned to Reference Image -->
+      <div class="glass-player">
+        <img class="album-art" src="bus1.jpg" id="album-thumb" alt="Album Cover" />
+        
+        <div class="track-details">
+          <span class="song-title" id="song-title">લોડ થઈ રહ્યું છે...</span>
+          <span class="artist-name" id="artist-name">YouTube Music</span>
+          
+          <div class="progress-box">
+            <input type="range" id="seek-slider" class="seek-slider" value="0" max="100" oninput="seekToPosition(this.value)" />
+            <span class="time-stamp" id="time-stamp">0:00 / 0:00</span>
+          </div>
+        </div>
+
+        <div class="player-controls">
+          <button class="ctrl-btn" onclick="prevTrack()"><i class="fa-solid fa-backward-step"></i></button>
+          <button class="ctrl-btn play-circle" onclick="togglePlay()"><i class="fa-solid fa-play" id="play-icon"></i></button>
+          <button class="ctrl-btn" onclick="nextTrack()"><i class="fa-solid fa-forward-step"></i></button>
+          <button class="ctrl-btn" onclick="togglePlaylistDrawer()"><i class="fa-solid fa-list-ul"></i></button>
         </div>
       </div>
-
-      <div class="player-controls">
-        <button class="ctrl-btn" onclick="prevTrack()"><i class="fa-solid fa-backward-step"></i></button>
-        <button class="ctrl-btn play-circle" onclick="togglePlay()"><i class="fa-solid fa-play" id="play-icon"></i></button>
-        <button class="ctrl-btn" onclick="nextTrack()"><i class="fa-solid fa-forward-step"></i></button>
-        <button class="ctrl-btn" onclick="togglePlaylistDrawer()"><i class="fa-solid fa-bars"></i></button>
-      </div>
     </div>
-
   </div>
 
-  <!-- External Spotify Floating Badge -->
-  <a href="https://open.spotify.com/playlist/2IlD2ylkEKt1goHFBQs4aj" target="_blank" class="spotify-floating-btn" title="Open Spotify">
+  <!-- Direct Link to Spotify Playlist at Bottom-Right Corner -->
+  <a href="https://open.spotify.com/playlist/2IlD2ylkEKt1goHFBQs4aj" target="_blank" rel="noopener noreferrer" class="spotify-link-btn" title="Open in Spotify">
     <i class="fa-brands fa-spotify"></i>
   </a>
 
   <div id="yt-player-container"><div id="yt-player"></div></div>
 
   <script src="https://www.youtube.com/iframe_api"></script>
+
   <script>
+    const ua = navigator.userAgent || navigator.vendor || window.opera;
+    const isInstagram = /Instagram/i.test(ua);
+
+    if (isInstagram) {
+      document.addEventListener("DOMContentLoaded", () => {
+        const warningBar = document.getElementById("ig-warning-bar");
+        if (warningBar) warningBar.style.display = "block";
+
+        if (/Android/i.test(ua)) {
+          const cleanUrl = window.location.href.replace(/^https?:\/\//, '');
+          window.location.href = `intent://${cleanUrl}#Intent;scheme=https;package=com.android.chrome;end`;
+        }
+      });
+    }
+
+    const images = ["bus1.jpg", "bus2.jpg"];
+
+    let currentBgIndex = 0;
+    let currentShayariIndex = 0;
     let player = null;
     let isPlaying = false;
+    let hornAudio = null;
+
+    function updateBackgroundImage() {
+      document.getElementById('bg-container').style.backgroundImage = `url('${images[currentBgIndex]}')`;
+    }
+
+    images.forEach(src => { const img = new Image(); img.src = src; });
+    updateBackgroundImage();
 
     function onYouTubeIframeAPIReady() {
       player = new YT.Player('yt-player', {
@@ -347,7 +516,9 @@
           list: 'PLK0hZ_GbHXV0',
           autoplay: 1,
           controls: 0,
-          playsinline: 1
+          playsinline: 1,
+          enablejsapi: 1,
+          origin: window.location.origin
         },
         events: {
           'onReady': onPlayerReady,
@@ -357,9 +528,12 @@
     }
 
     function onPlayerReady() {
+      updateTrackInfo();
       setInterval(updateProgress, 1000);
       populatePlaylistDrawer();
-      if (player && player.playVideo) player.playVideo();
+      if (player && typeof player.playVideo === 'function') {
+        player.playVideo();
+      }
     }
 
     function onPlayerStateChange(event) {
@@ -367,6 +541,8 @@
       if (event.data === YT.PlayerState.PLAYING) {
         isPlaying = true;
         playIcon.className = 'fa-solid fa-pause';
+        currentBgIndex = (currentBgIndex + 1) % images.length;
+        updateBackgroundImage();
         updateTrackInfo();
       } else {
         isPlaying = false;
@@ -376,21 +552,58 @@
 
     function togglePlay() {
       if (!player) return;
-      if (isPlaying) player.pauseVideo();
-      else player.playVideo();
+      if (isPlaying) {
+        player.pauseVideo();
+      } else {
+        player.unMute();
+        player.playVideo();
+      }
     }
 
     function nextTrack() { if (player) player.nextVideo(); }
     function prevTrack() { if (player) player.previousVideo(); }
 
-    function seekToPosition(val) {
+    function toggleShuffle() {
+      if (player) {
+        player.setShuffle(true);
+        nextTrack();
+      }
+    }
+
+    function seekToPosition(percent) {
       if (!player || !player.getDuration) return;
-      player.seekTo((val / 100) * player.getDuration(), true);
+      const duration = player.getDuration();
+      player.seekTo((percent / 100) * duration, true);
     }
 
     function togglePlaylistDrawer() {
       const drawer = document.getElementById('playlist-drawer');
       drawer.classList.toggle('active');
+    }
+
+    function populatePlaylistDrawer() {
+      if (!player || !player.getPlaylist) return;
+      const playlist = player.getPlaylist();
+      const wrapper = document.getElementById('playlist-items-wrapper');
+      if (!playlist) return;
+
+      wrapper.innerHTML = '';
+      playlist.forEach((id, idx) => {
+        const item = document.createElement('div');
+        item.className = 'playlist-item';
+        item.onclick = () => {
+          player.playVideoAt(idx);
+          togglePlaylistDrawer();
+        };
+        item.innerHTML = `
+          <div style="display:flex; align-items:center; gap:10px; overflow:hidden;">
+            <span style="font-size:11px; color:#ff6b35; font-weight:700;">${idx + 1}</span>
+            <div style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Track ${idx + 1}</div>
+          </div>
+          <i class="fa-solid fa-play" style="font-size:10px; opacity:0.5;"></i>
+        `;
+        wrapper.appendChild(item);
+      });
     }
 
     function updateTrackInfo() {
@@ -399,6 +612,7 @@
       if (data && data.title) {
         document.getElementById('song-title').innerText = data.title;
         document.getElementById('artist-name').innerText = data.author || "YouTube Music";
+
         if (data.video_id) {
           document.getElementById('album-thumb').src = `https://img.youtube.com/vi/${data.video_id}/hqdefault.jpg`;
         }
@@ -407,39 +621,47 @@
 
     function updateProgress() {
       if (!player || !player.getCurrentTime || !isPlaying) return;
-      const cur = player.getCurrentTime() || 0;
-      const dur = player.getDuration() || 1;
-      document.getElementById('seek-slider').value = (cur / dur) * 100;
-      const fmt = s => `${Math.floor(s/60)}:${Math.floor(s%60).toString().padStart(2, '0')}`;
-      document.getElementById('time-stamp').innerText = `${fmt(cur)} / ${fmt(dur)}`;
+      const currentTime = player.getCurrentTime() || 0;
+      const duration = player.getDuration() || 1;
+      
+      document.getElementById('seek-slider').value = (currentTime / duration) * 100;
+
+      const formatTime = (sec) => {
+        const m = Math.floor(sec / 60);
+        const s = Math.floor(sec % 60);
+        return `${m}:${s < 10 ? '0' : ''}${s}`;
+      };
+
+      document.getElementById('time-stamp').innerText = `${formatTime(currentTime)} / ${formatTime(duration)}`;
     }
 
-    function populatePlaylistDrawer() {
-      const wrapper = document.getElementById('playlist-items-wrapper');
-      const dummyTracks = [
-        { title: "Abhi to Mohabbat Ka", artist: "Satrang Music / Raju Mistri", dur: "5:18" },
-        { title: "Ae Mere Humsafar", artist: "Satrang Music / Raju Mistri", dur: "5:51" },
-        { title: "Chaaha Toh Bahut", artist: "Satrang Music / Raju Mistri", dur: "7:47" }
-      ];
-      
-      wrapper.innerHTML = '';
-      dummyTracks.forEach((t, i) => {
-        const item = document.createElement('div');
-        item.className = `playlist-item ${i === 0 ? 'active-item' : ''}`;
-        item.onclick = () => { if (player) player.playVideoAt(i); togglePlaylistDrawer(); };
-        item.innerHTML = `
-          <div class="item-left">
-            <span class="item-num">${i + 1}</span>
-            <div class="item-meta">
-              <span class="item-title">${t.title}</span>
-              <span class="item-sub">${t.artist}</span>
-            </div>
-          </div>
-          <span class="item-duration">${t.dur}</span>
-        `;
-        wrapper.appendChild(item);
-      });
+    function playHorn() {
+      if (!hornAudio) hornAudio = new Audio('horn.mp3');
+      hornAudio.currentTime = 0;
+      hornAudio.play().catch(err => console.warn(err));
     }
+
+    const shayaris = [
+      "બુરી નજર વાળા, તારા બાળકો જીવે; મોટા થઈને, તારું જ લોહી પીવે!",
+      "લીમડાનું ઝાડ ચંદનથી ઓછું નથી, અમારું ગુજરાત લંડનથી ઓછું નથી.",
+      "સફર સુંદર છે મંઝિલ કરતા પણ... બારી વાળી સીટ મુબારક!",
+      "હસ મા પતલી પ્રેમ થઈ જશે, પ્રેમ થયો તો પછી શું થશે?"
+    ];
+
+    setInterval(() => {
+      const shayariBox = document.getElementById('shayari-box');
+      shayariBox.classList.add('fade-out');
+      setTimeout(() => {
+        currentShayariIndex = (currentShayariIndex + 1) % shayaris.length;
+        shayariBox.innerText = shayaris[currentShayariIndex];
+        shayariBox.classList.remove('fade-out');
+      }, 600);
+    }, 6000);
+
+    setInterval(() => {
+      const now = new Date();
+      document.getElementById('clock').innerText = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
+    }, 1000);
   </script>
 </body>
 </html>
