@@ -147,7 +147,7 @@
       gap: 12px;
       z-index: 10;
       position: relative;
-      margin-bottom: 35px; /* Creates spacing above bottom edge as requested */
+      margin-bottom: 55px; /* Lifted player bar higher from bottom edge */
     }
 
     .shayari-container {
@@ -251,7 +251,7 @@
 
     .seek-slider::-webkit-slider-thumb {
       -webkit-appearance: none;
-      width: 10px;
+      width: 100px;
       height: 10px;
       border-radius: 50%;
       background: #ffffff;
@@ -294,7 +294,7 @@
       font-size: 13px;
     }
 
-    /* Floating Spotify Icon Fixed Position */
+    /* Floating YouTube Music Icon Fixed Position */
     .floating-app-btn {
       position: fixed;
       right: 16px;
@@ -307,8 +307,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #1DB954;
-      font-size: 20px;
+      color: #ff0000;
+      font-size: 18px;
       text-decoration: none;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
       z-index: 1000;
@@ -488,9 +488,9 @@
     </div>
   </div>
 
-  <!-- Floating Spotify / App Icon -->
-  <a href="https://open.spotify.com" target="_blank" class="floating-app-btn" title="Open Spotify">
-    <i class="fa-brands fa-spotify"></i>
+  <!-- Floating YouTube Music Icon -->
+  <a href="https://music.youtube.com" target="_blank" class="floating-app-btn" title="Open YouTube Music">
+    <i class="fa-brands fa-youtube"></i>
   </a>
 
   <div id="yt-player-container"><div id="yt-player"></div></div>
