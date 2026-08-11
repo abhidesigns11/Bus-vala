@@ -143,11 +143,10 @@
       max-width: 480px;
       display: flex;
       flex-direction: column;
-      align-items: center;
       gap: 12px;
       z-index: 10;
       position: relative;
-      margin-bottom: 55px; /* Lifted player bar higher from bottom edge */
+      margin-bottom: 35px;
     }
 
     .shayari-container {
@@ -168,7 +167,7 @@
 
     .shayari-text.fade-out { opacity: 0; }
 
-    /* Player Container */
+    /* Player Wrapper & Glass Container */
     .player-row-wrapper {
       width: 100%;
       position: relative;
@@ -181,25 +180,32 @@
       backdrop-filter: blur(24px);
       -webkit-backdrop-filter: blur(24px);
       border-radius: 20px;
-      padding: 10px 12px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+    }
+
+    .player-header-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 8px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+      gap: 10px;
+      width: 100%;
     }
 
     .left-track-info {
       display: flex;
       align-items: center;
-      gap: 8px;
-      width: 32%;
+      gap: 10px;
+      flex: 1;
       min-width: 0;
     }
 
     .album-art {
-      width: 42px;
-      height: 42px;
+      width: 44px;
+      height: 44px;
       border-radius: 8px;
       object-fit: cover;
       flex-shrink: 0;
@@ -213,7 +219,7 @@
     }
 
     .song-title {
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 700;
       color: #ffffff;
       white-space: nowrap;
@@ -222,50 +228,13 @@
     }
 
     .artist-name {
-      font-size: 10px;
+      font-size: 11px;
       color: rgba(255, 255, 255, 0.5);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
 
-    /* Center Progress Column */
-    .center-progress-col {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 34%;
-      gap: 3px;
-    }
-
-    .seek-slider {
-      -webkit-appearance: none;
-      appearance: none;
-      width: 100%;
-      height: 3px;
-      border-radius: 3px;
-      background: linear-gradient(to right, #ff5a1f 0%, #ff5a1f 0%, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.2) 100%);
-      outline: none;
-      cursor: pointer;
-    }
-
-    .seek-slider::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      width: 100px;
-      height: 10px;
-      border-radius: 50%;
-      background: #ffffff;
-      box-shadow: 0 0 4px rgba(0,0,0,0.5);
-    }
-
-    .time-stamp {
-      font-size: 9px;
-      color: rgba(255, 255, 255, 0.6);
-      font-variant-numeric: tabular-nums;
-      letter-spacing: 0.5px;
-    }
-
-    /* Right Player Controls */
     .player-controls {
       display: flex;
       align-items: center;
@@ -277,12 +246,12 @@
       background: transparent;
       border: none;
       color: rgba(255, 255, 255, 0.9);
-      font-size: 13px;
+      font-size: 14px;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 4px;
+      padding: 6px;
     }
 
     .ctrl-btn.play-circle {
@@ -294,7 +263,42 @@
       font-size: 13px;
     }
 
-    /* Floating YouTube Music Icon Fixed Position */
+    .center-progress-col {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      gap: 4px;
+    }
+
+    .seek-slider {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 4px;
+      border-radius: 4px;
+      background: linear-gradient(to right, #ff5a1f 0%, #ff5a1f 0%, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.2) 100%);
+      outline: none;
+      cursor: pointer;
+    }
+
+    .seek-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #ffffff;
+      box-shadow: 0 0 4px rgba(0,0,0,0.5);
+    }
+
+    .time-stamp {
+      font-size: 10px;
+      color: rgba(255, 255, 255, 0.6);
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 0.5px;
+      text-align: right;
+    }
+
+    /* Floating Spotify Icon */
     .floating-app-btn {
       position: fixed;
       right: 16px;
@@ -307,8 +311,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #ff0000;
-      font-size: 18px;
+      color: #1DB954;
+      font-size: 20px;
       text-decoration: none;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
       z-index: 1000;
@@ -461,14 +465,23 @@
         <p class="shayari-text" id="shayari-box">બુરી નજર વાળા, તારા બાળકો જીવે; મોટા થઈને, તારું જ લોહી પીવે!</p>
       </div>
 
-      <!-- Elevated Player Bar -->
+      <!-- Player Bar Structured Layout -->
       <div class="player-row-wrapper">
         <div class="glass-player">
-          <div class="left-track-info">
-            <img class="album-art" src="bus1.jpg" id="album-thumb" alt="Album Cover" />
-            <div class="track-details">
-              <span class="song-title" id="song-title">Prem To Moto...</span>
-              <span class="artist-name" id="artist-name">Jignesh Barot</span>
+          <div class="player-header-row">
+            <div class="left-track-info">
+              <img class="album-art" src="bus1.jpg" id="album-thumb" alt="Album Cover" />
+              <div class="track-details">
+                <span class="song-title" id="song-title">Prem To Moto...</span>
+                <span class="artist-name" id="artist-name">Jignesh Barot</span>
+              </div>
+            </div>
+
+            <div class="player-controls">
+              <button class="ctrl-btn" onclick="prevTrack()"><i class="fa-solid fa-backward-step"></i></button>
+              <button class="ctrl-btn play-circle" onclick="togglePlay()"><i class="fa-solid fa-play" id="play-icon"></i></button>
+              <button class="ctrl-btn" onclick="nextTrack()"><i class="fa-solid fa-forward-step"></i></button>
+              <button class="ctrl-btn" onclick="togglePlaylistDrawer()"><i class="fa-solid fa-list-ul"></i></button>
             </div>
           </div>
 
@@ -476,21 +489,14 @@
             <input type="range" id="seek-slider" class="seek-slider" value="0" max="100" oninput="seekToPosition(this.value)" />
             <span class="time-stamp" id="time-stamp">0:00 / 0:00</span>
           </div>
-
-          <div class="player-controls">
-            <button class="ctrl-btn" onclick="prevTrack()"><i class="fa-solid fa-backward-step"></i></button>
-            <button class="ctrl-btn play-circle" onclick="togglePlay()"><i class="fa-solid fa-play" id="play-icon"></i></button>
-            <button class="ctrl-btn" onclick="nextTrack()"><i class="fa-solid fa-forward-step"></i></button>
-            <button class="ctrl-btn" onclick="togglePlaylistDrawer()"><i class="fa-solid fa-list-ul"></i></button>
-          </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Floating YouTube Music Icon -->
-  <a href="https://music.youtube.com" target="_blank" class="floating-app-btn" title="Open YouTube Music">
-    <i class="fa-brands fa-youtube"></i>
+  <!-- Floating Spotify / App Icon -->
+  <a href="https://open.spotify.com" target="_blank" class="floating-app-btn" title="Open Spotify">
+    <i class="fa-brands fa-spotify"></i>
   </a>
 
   <div id="yt-player-container"><div id="yt-player"></div></div>
