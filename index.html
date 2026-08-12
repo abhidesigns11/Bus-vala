@@ -70,7 +70,7 @@
       margin: 0 auto;
     }
 
-    /* Top Header Bar Aligned: Clock Left, Active Count Right */
+    /* Top Bar: Left Clock, Right Live Status Pill */
     .top-bar {
       width: 100%;
       display: flex;
@@ -441,7 +441,6 @@
   <div id="bg-container"></div>
 
   <div class="app-viewport">
-    <!-- Header with Left Clock and Right Status Pill -->
     <header class="top-bar">
       <div class="clock-pill" id="clock">13:09</div>
       <div class="status-pill">
@@ -503,32 +502,40 @@
 
   <div id="yt-player-container"><div id="yt-player"></div></div>
 
+  <!-- YouTube IFrame API -->
   <script src="https://www.youtube.com/iframe_api"></script>
 
-  <script>
-    /* Live Active Users Simulation & Cross-Tab Broadcast Channel Sync */
-    let activeUsers = 1;
-    const channel = new BroadcastChannel('bus_valo_active_users');
+  <!-- FIREBASE REALTIME DATABASE PRESENCE TRACKING -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getDatabase, ref, onValue, push, onDisconnect, set } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
-    // Sync active tabs on same browser instance
-    channel.postMessage({ type: 'USER_JOIN' });
-    channel.onmessage = (event) => {
-      if (event.data.type === 'USER_JOIN') {
-        activeUsers++;
-        updateActiveUserDisplay();
-        channel.postMessage({ type: 'USER_ACK', count: activeUsers });
-      } else if (event.data.type === 'USER_ACK') {
-        if (event.data.count > activeUsers) {
-          activeUsers = event.data.count;
-          updateActiveUserDisplay();
-        }
-      }
+    const firebaseConfig = {
+      databaseURL: "https://bus-vala-default-rtdb.asia-southeast1.firebasedatabase.app/"
     };
 
-    function updateActiveUserDisplay() {
-      document.getElementById('passenger-count').innerText = activeUsers;
-    }
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
 
+    const connectedRef = ref(db, ".info/connected");
+    const presenceRef = ref(db, "presence");
+
+    onValue(connectedRef, (snap) => {
+      if (snap.val() === true) {
+        const userRef = push(presenceRef);
+        onDisconnect(userRef).remove();
+        set(userRef, true);
+      }
+    });
+
+    onValue(presenceRef, (snap) => {
+      const activeCount = snap.exists() ? snap.size : 0;
+      document.getElementById("passenger-count").innerText = activeCount || 1;
+    });
+  </script>
+
+  <script>
+    /* PLAYLIST DATA */
     const playlistData = [
       { title: "Prem To Moto Rog Se", artist: "Jignesh Barot", duration: "2:00", thumb: "bus1.jpg" },
       { title: "Tara Roop Ni Vato", artist: "Pankaj Mistry", duration: "4:42", thumb: "bus2.jpg" },
@@ -581,9 +588,15 @@
       updateTrackInfo(0);
       setInterval(updateProgress, 1000);
       populatePlaylistDrawer();
-      if (player && typeof player.playVideo === 'function') {
-        player.playVideo();
-      }
+
+      const unlockAudio = () => {
+        if (player && typeof player.playVideo === 'function') {
+          player.unMute();
+          player.playVideo();
+        }
+        document.removeEventListener('click', unlockAudio);
+      };
+      document.addEventListener('click', unlockAudio);
     }
 
     function onPlayerStateChange(event) {
@@ -670,7 +683,10 @@
         const el = document.createElement('div');
         el.className = `playlist-item ${idx === currentTrackIdx ? 'active-track' : ''}`;
         el.onclick = () => {
-          if (player) player.playVideoAt(idx);
+          if (player) {
+            player.unMute();
+            player.playVideoAt(idx);
+          }
           updateTrackInfo(idx);
           togglePlaylistDrawer();
         };
