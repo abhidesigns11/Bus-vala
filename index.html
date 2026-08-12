@@ -66,38 +66,60 @@
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
-      padding: 16px;
+      padding: 20px 24px;
       margin: 0 auto;
     }
 
+    /* Desktop Responsive Top Header Bar Structure */
     .top-bar {
       width: 100%;
-      max-width: 480px;
+      max-width: 1200px;
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-end;
       align-items: center;
-      font-size: 13px;
       z-index: 10;
     }
 
-    .status-pill {
-      background: rgba(255, 255, 255, 0.18);
-      padding: 5px 14px;
-      border-radius: 20px;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+    .top-bar-right {
       display: flex;
       align-items: center;
-      gap: 6px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      gap: 12px;
+    }
+
+    .clock-pill {
+      background: rgba(0, 0, 0, 0.35);
+      padding: 6px 16px;
+      border-radius: 20px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      font-size: 13px;
+      font-weight: 700;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+      letter-spacing: 0.5px;
+    }
+
+    .status-pill {
+      background: rgba(0, 0, 0, 0.35);
+      padding: 6px 16px;
+      border-radius: 20px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      font-size: 13px;
+      font-weight: 700;
+      color: #ffffff;
     }
 
     .green-dot {
-      width: 7px;
-      height: 7px;
+      width: 8px;
+      height: 8px;
       background-color: #2ed573;
       border-radius: 50%;
-      box-shadow: 0 0 6px #2ed573;
+      box-shadow: 0 0 8px #2ed573;
     }
 
     .center-top-branding {
@@ -120,13 +142,13 @@
 
     .horn-btn {
       position: absolute;
-      left: 16px;
+      left: 24px;
       top: 50%;
       transform: translateY(-50%);
       background: rgba(255, 255, 255, 0.18);
       border: 1px solid rgba(255, 255, 255, 0.25);
       color: white;
-      padding: 8px 16px;
+      padding: 10px 18px;
       border-radius: 25px;
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
@@ -147,7 +169,7 @@
       gap: 12px;
       z-index: 10;
       position: relative;
-      margin-bottom: 70px; /* Lifted player bar higher from bottom edge */
+      margin-bottom: 70px;
     }
 
     .shayari-container {
@@ -294,7 +316,7 @@
       font-size: 13px;
     }
 
-    /* Floating YouTube Music Icon Fixed Position */
+    /* Floating YouTube Music Icon Position */
     .floating-app-btn {
       position: fixed;
       right: 16px;
@@ -432,9 +454,11 @@
 
   <div class="app-viewport">
     <header class="top-bar">
-      <span id="clock">14:53</span>
-      <div class="status-pill">
-        <span class="green-dot"></span> <span id="passenger-count">1</span> રસ્તા પર
+      <div class="top-bar-right">
+        <div class="clock-pill" id="clock">13:09</div>
+        <div class="status-pill">
+          <span class="green-dot"></span> <span id="passenger-count">1</span> રસ્તા પર
+        </div>
       </div>
     </header>
 
