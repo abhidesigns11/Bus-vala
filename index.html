@@ -70,20 +70,13 @@
       margin: 0 auto;
     }
 
-    /* Desktop Responsive Top Header Bar Structure */
+    /* Top Header Bar Aligned: Clock Left, Active Count Right */
     .top-bar {
       width: 100%;
-      max-width: 1200px;
       display: flex;
-      justify-content: flex-end;
+      justify-content: space-between;
       align-items: center;
       z-index: 10;
-    }
-
-    .top-bar-right {
-      display: flex;
-      align-items: center;
-      gap: 12px;
     }
 
     .clock-pill {
@@ -190,7 +183,6 @@
 
     .shayari-text.fade-out { opacity: 0; }
 
-    /* Player Container */
     .player-row-wrapper {
       width: 100%;
       position: relative;
@@ -251,7 +243,6 @@
       text-overflow: ellipsis;
     }
 
-    /* Center Progress Column */
     .center-progress-col {
       display: flex;
       flex-direction: column;
@@ -287,7 +278,6 @@
       letter-spacing: 0.5px;
     }
 
-    /* Right Player Controls */
     .player-controls {
       display: flex;
       align-items: center;
@@ -316,7 +306,6 @@
       font-size: 13px;
     }
 
-    /* Floating YouTube Music Icon Position */
     .floating-app-btn {
       position: fixed;
       right: 16px;
@@ -336,7 +325,6 @@
       z-index: 1000;
     }
 
-    /* Playlist Drawer */
     .playlist-drawer {
       width: 100%;
       max-height: 280px;
@@ -453,12 +441,11 @@
   <div id="bg-container"></div>
 
   <div class="app-viewport">
+    <!-- Header with Left Clock and Right Status Pill -->
     <header class="top-bar">
-      <div class="top-bar-right">
-        <div class="clock-pill" id="clock">13:09</div>
-        <div class="status-pill">
-          <span class="green-dot"></span> <span id="passenger-count">1</span> રસ્તા પર
-        </div>
+      <div class="clock-pill" id="clock">13:09</div>
+      <div class="status-pill">
+        <span class="green-dot"></span> <span id="passenger-count">1</span> રસ્તા પર
       </div>
     </header>
 
@@ -472,7 +459,6 @@
     </button>
 
     <div class="bottom-section">
-      <!-- Playlist Queue Drawer -->
       <div class="playlist-drawer" id="playlist-drawer">
         <div class="drawer-header">
           <span>PLAYLIST QUEUE (9)</span>
@@ -485,7 +471,6 @@
         <p class="shayari-text" id="shayari-box">બુરી નજર વાળા, તારા બાળકો જીવે; મોટા થઈને, તારું જ લોહી પીવે!</p>
       </div>
 
-      <!-- Elevated Player Bar -->
       <div class="player-row-wrapper">
         <div class="glass-player">
           <div class="left-track-info">
@@ -512,7 +497,6 @@
     </div>
   </div>
 
-  <!-- Floating YouTube Music Icon -->
   <a href="https://music.youtube.com" target="_blank" class="floating-app-btn" title="Open YouTube Music">
     <i class="fa-brands fa-youtube"></i>
   </a>
@@ -522,6 +506,29 @@
   <script src="https://www.youtube.com/iframe_api"></script>
 
   <script>
+    /* Live Active Users Simulation & Cross-Tab Broadcast Channel Sync */
+    let activeUsers = 1;
+    const channel = new BroadcastChannel('bus_valo_active_users');
+
+    // Sync active tabs on same browser instance
+    channel.postMessage({ type: 'USER_JOIN' });
+    channel.onmessage = (event) => {
+      if (event.data.type === 'USER_JOIN') {
+        activeUsers++;
+        updateActiveUserDisplay();
+        channel.postMessage({ type: 'USER_ACK', count: activeUsers });
+      } else if (event.data.type === 'USER_ACK') {
+        if (event.data.count > activeUsers) {
+          activeUsers = event.data.count;
+          updateActiveUserDisplay();
+        }
+      }
+    };
+
+    function updateActiveUserDisplay() {
+      document.getElementById('passenger-count').innerText = activeUsers;
+    }
+
     const playlistData = [
       { title: "Prem To Moto Rog Se", artist: "Jignesh Barot", duration: "2:00", thumb: "bus1.jpg" },
       { title: "Tara Roop Ni Vato", artist: "Pankaj Mistry", duration: "4:42", thumb: "bus2.jpg" },
